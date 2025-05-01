@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ProductDocument, Products } from './schemas/product.schema';
+import { Products } from './schemas/product.schema';
 import { Model } from 'mongoose';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -8,7 +8,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 @Injectable()
 export class ProductService {
     constructor(
-        @InjectModel(Products.name) private productModel: Model<ProductDocument>,
+        @InjectModel(Products.name) private productModel: Model<Products>,
     ) { }
 
     async create(createProductDto: CreateProductDto): Promise<Products> {
