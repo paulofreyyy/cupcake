@@ -14,6 +14,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { UserService } from 'src/user/user.service';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -24,9 +25,9 @@ export class AuthController {
 
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    signIn(@Body(new ValidationPipe()) signInDto: RegisterDto) {
-        const {username, password} = signInDto;
-        return this.authService.signIn(username, password);
+    signIn(@Body(new ValidationPipe()) signInDto: LoginDto) {
+        const {email, password} = signInDto;
+        return this.authService.signIn(email, password);
     }
 
     @HttpCode(HttpStatus.CREATED)

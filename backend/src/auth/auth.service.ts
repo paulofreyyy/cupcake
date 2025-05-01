@@ -16,13 +16,13 @@ export class AuthService {
         private jwtService: JwtService,
     ) { }
 
-    async signIn(username: string, pass: string): Promise<{ access_token: string }> {
-        const user: UserDocument = await this.userService.findOne(username);
+    async signIn(email: string, pass: string): Promise<{ access_token: string }> {
+        const user: UserDocument = await this.userService.findOne(email);
         if (!user) throw new UnauthorizedException('Credenciais inválidas: Usuário não encontrado');
         const isMatch = await bcrypt.compare(pass, user.password);
         if (!isMatch) throw new UnauthorizedException('Credenciais inválidas: Senha incorreta');
 
-        const payload = { sub: user._id.toString(), username: user.username };
+        const payload = { sub: user._id.toString(), email: user.email };
 
         return {
             access_token: await this.jwtService.signAsync(payload),
@@ -31,17 +31,18 @@ export class AuthService {
 
 
     async register(registerDto: RegisterDto): Promise<{ message: string }> {
-        const { username, password } = registerDto;
+        const { email, password, name } = registerDto;
 
-        const existingUser = await this.userService.findOne(username);
+        const existingUser = await this.userService.findOne(email);
         if (existingUser) {
             throw new ConflictException('Usuário já existe');
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         await this.userService.create({
-            username,
+            email,
             password: hashedPassword,
+            name
         });
 
         return { message: 'Usuário criado com sucesso' };
