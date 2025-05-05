@@ -3,18 +3,24 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     standalone: true,
     selector: 'app-login',
-    imports: [CommonModule, FormsModule],
-    template: `
-    <form (ngSubmit)="submit()">
-      <input [(ngModel)]="email" name="email" placeholder="Email" required>
-      <input [(ngModel)]="password" name="password" type="password" placeholder="Senha" required>
-      <button type="submit">Login</button>
-    </form>
-  `
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule
+    ],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css'
 })
 export class LoginComponent {
     private auth = inject(AuthService);
