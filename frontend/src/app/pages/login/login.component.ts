@@ -26,7 +26,6 @@ export class LoginComponent {
     submit() {
         this.auth.login({ email: this.email, password: this.password }).subscribe({
             next: (res) => {
-                localStorage.setItem('token', res.token); // Se o backend retornar token
                 this.router.navigate(['/']);
             },
             error: (err) => alert('Credenciais inválidas')
