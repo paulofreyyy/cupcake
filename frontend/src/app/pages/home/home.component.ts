@@ -2,13 +2,23 @@ import { Component, OnInit } from "@angular/core";
 import { Product } from "../../shared/models/product.model";
 import { ProductService } from "../../services/product.service";
 import { CommonModule } from "@angular/common";
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
     imports: [
-        CommonModule
+        CommonModule,
+        MatCardModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule
     ],
 })
 export class HomeComponent implements OnInit {
@@ -26,7 +36,7 @@ export class HomeComponent implements OnInit {
         this.loading = true;
         this.productService.getProducts().subscribe({
             next: (data) => {
-                this.products = data;
+                this.products = data
                 this.loading = false;
             },
             error: (err) => {
@@ -35,7 +45,6 @@ export class HomeComponent implements OnInit {
             },
         });
     }
-
     deleteProduct(id: string): void {
         this.productService.deleteProduct(id).subscribe({
             next: () => {
