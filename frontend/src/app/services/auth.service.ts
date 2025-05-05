@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    private api = 'http://localhost:3000';
+    private api = 'localhost:3000';
 
     constructor(private http: HttpClient) { }
 
@@ -13,6 +13,6 @@ export class AuthService {
     }
 
     register(data: { name: string; email: string; password: string }): Observable<any> {
-        return this.http.post(`${this.api}/auth/register`, data,);
+        return this.http.post(`${this.api}/auth/register`, data);
     }
 }
