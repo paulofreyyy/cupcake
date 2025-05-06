@@ -1,0 +1,7 @@
+.spacer {
+    flex: 1 1 auto;
+}
+mat-toolbar{
+    background-color: #FFF;
+    border-bottom: 1px solid rgb(211, 211, 211);
+}
