@@ -16,7 +16,7 @@ export class AuthService {
         private jwtService: JwtService,
     ) { }
 
-    async signIn(email: string, pass: string): Promise<{ access_token: string }> {
+    async signIn(email: string, pass: string): Promise<{ access_token: string, clientId: unknown }> {
         const user: UserDocument = await this.userService.findOne(email);
         if (!user) throw new UnauthorizedException('Credenciais inválidas: Usuário não encontrado');
         const isMatch = await bcrypt.compare(pass, user.password);
@@ -26,6 +26,7 @@ export class AuthService {
 
         return {
             access_token: await this.jwtService.signAsync(payload),
+            clientId: user._id
         };
     }
 
