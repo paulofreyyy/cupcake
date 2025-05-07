@@ -19,7 +19,12 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button mat-raised-button color="primary">
+            <mat-form-field appearance="outline" class="quantity-field">
+                <mat-label>Quantidade</mat-label>
+                <input matInput type="number" min="1" [(ngModel)]="quantities[product._id]" />
+              </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="addToCart(product, quantities[product._id] || 1)">
                 Adicionar ao Carrinho
             </button>
         </mat-card-actions>

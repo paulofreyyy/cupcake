@@ -10,7 +10,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    background-color: #FFF;
+    background-color: #fff;
 }
 
 .mat-form-field {
@@ -38,9 +38,18 @@ mat-card-subtitle {
     font-weight: 480;
     margin-bottom: 10px;
 }
-mat-card-title{
+mat-card-title {
     font-weight: 500;
 }
-button{
+button {
     margin: 10px auto;
+}
+
+.quantity-field {
+    width: 100%;
+}
+
+mat-card-actions {
+    display: flex;
+    flex-direction: column;
 }

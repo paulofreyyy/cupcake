@@ -6,7 +6,9 @@ import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatIconModule } from "@angular/material/icon";
 import { FormsModule } from "@angular/forms";
+import { OrderService } from "../../services/order.service";
 
 @Component({
     selector: 'app-home',
@@ -18,15 +20,21 @@ import { FormsModule } from "@angular/forms";
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
-        FormsModule
+        FormsModule,
+        MatIconModule
     ],
 })
 export class HomeComponent implements OnInit {
     products: Product[] = [];
     loading = false;
     error: string | null = null;
+    quantities: { [productId: string]: number } = {}
 
-    constructor(private productService: ProductService) { }
+    constructor(
+        private productService: ProductService,
+        private orderService: OrderService,
+
+    ) { }
 
     ngOnInit(): void {
         this.getProducts()
@@ -45,6 +53,7 @@ export class HomeComponent implements OnInit {
             },
         });
     }
+
     deleteProduct(id: string): void {
         this.productService.deleteProduct(id).subscribe({
             next: () => {
@@ -54,5 +63,32 @@ export class HomeComponent implements OnInit {
                 this.error = 'Erro ao deletar produto';
             }
         });
+    }
+
+    addToCart(product: Product, quantity: number) {
+        const clientId = localStorage.getItem('clientId')
+        if (!clientId) {
+            console.error('Client ID não encontrado. Por favor, faça o login.')
+            return
+        }
+
+        const orderItem = {
+            clientId,
+            items: [
+                {
+                    product: product._id,
+                    quantity
+                }
+            ]
+        }
+        this.orderService.createOrder(orderItem)
+            .subscribe({
+                next: () => {
+                    console.log("Pedido criado com sucesso")
+                },
+                error: (err) => {
+                    console.error("Erro ao criar produto", err)
+                }
+            })
     }
 }
