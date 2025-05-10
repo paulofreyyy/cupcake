@@ -14,11 +14,11 @@ export class OrdersService {
     ) { }
 
     async create(dto: CreateOrderDto) {
-        let total = 0; 
+        let total = 0;
 
-        for(const item of dto.items){
+        for (const item of dto.items) {
             const product = await this.productModel.findById(item.product).exec();
-            if(!product) throw new NotFoundException(`Produto com id ${item.product} não encontrado!`);
+            if (!product) throw new NotFoundException(`Produto com id ${item.product} não encontrado!`);
 
             total += product.value * item.quantity
         }
@@ -37,19 +37,31 @@ export class OrdersService {
         return order;
     }
 
-    async addToCart(clientId: string, productId: string, quantity: number){
+    async update(id: string, dto: UpdateOrderDto) {
+        return this.orderModel.findByIdAndUpdate(id, dto, { new: true });
+    }
+
+    async remove(id: string) {
+        return this.orderModel.findByIdAndDelete(id);
+    }
+
+    async findPendingCartByClient(clientId: string) {
+        return await this.orderModel.findOne({ clientId, status: 'pending' }).populate('items.product')
+    }
+
+    async addToCart(clientId: string, productId: string, quantity: number) {
         const product = await this.productModel.findById(productId).exec();
-        if(!product) throw new NotFoundException(`Produto com id ${productId} não encotnrado!`);
+        if (!product) throw new NotFoundException(`Produto com id ${productId} não encotnrado!`);
 
-        let order = await this.orderModel.findOne({clientId, status: 'pending'});
+        let order = await this.orderModel.findOne({ clientId, status: 'pending' });
 
-        if(order){
+        if (order) {
             const itemIndex = order.items.findIndex(item => item.product.toString() === productId);
 
-            if(itemIndex >= 0){
+            if (itemIndex >= 0) {
                 order.items[itemIndex].quantity += quantity;
-            }else{
-                order.items.push({product: product._id as Types.ObjectId, quantity})
+            } else {
+                order.items.push({ product: product._id as Types.ObjectId, quantity })
             }
 
             order.total += product.value * quantity
@@ -62,19 +74,11 @@ export class OrdersService {
             clientId,
             status: 'pending',
             total,
-            items:[
-                {product: product._id, quantity}
+            items: [
+                { product: product._id, quantity }
             ]
         })
 
         return newOrder.save()
-    }
-
-    async update(id: string, dto: UpdateOrderDto) {
-        return this.orderModel.findByIdAndUpdate(id, dto, { new: true });
-    }
-
-    async remove(id: string) {
-        return this.orderModel.findByIdAndDelete(id);
     }
 }
