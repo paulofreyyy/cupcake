@@ -73,22 +73,17 @@ export class HomeComponent implements OnInit {
             return
         }
 
-        const orderItem = {
-            clientId,
-            items: [
-                {
-                    product: product._id,
-                    quantity: 1
-                }
-            ]
+        const data = {
+            productId: product._id,
+            quantity: 1
         }
-        this.orderService.createOrder(orderItem)
+        this.orderService.addToCart(clientId, data)
             .subscribe({
                 next: () => {
-                    console.log("Pedido criado com sucesso")
+                    console.log("Item adicionado ao carrinho com sucesso")
                 },
                 error: (err) => {
-                    console.error("Erro ao criar produto", err)
+                    console.error("Erro ao adicionar item ao carrinho", err)
                 }
             })
     }
