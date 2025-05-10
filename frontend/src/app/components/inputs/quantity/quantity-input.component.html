@@ -1,0 +1,28 @@
+<div class="quantity-wrapper">
+    <button
+        mat-icon-button
+        class="quantity-btn left"
+        (click)="decrease()"
+        [disabled]="value <= min"
+    >
+        <mat-icon>remove</mat-icon>
+    </button>
+
+    <input
+        matInput
+        class="quantity-input"
+        type="number"
+        [(ngModel)]="value"
+        [min]="min"
+        [max]="max"
+    />
+
+    <button
+        mat-icon-button
+        class="quantity-btn right"
+        (click)="increase()"
+        [disabled]="value >= max"
+    >
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

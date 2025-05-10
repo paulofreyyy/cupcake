@@ -9,20 +9,21 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { FormsModule } from "@angular/forms";
 import { OrderService } from "../../services/order.service";
+import { QuantityInputComponent } from "../../components/inputs/quantity/quantity-input.component";
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        FormsModule,
-        MatIconModule
-    ],
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatIconModule,
+],
 })
 export class HomeComponent implements OnInit {
     products: Product[] = [];
@@ -65,7 +66,7 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    addToCart(product: Product, quantity: number) {
+    addToCart(product: Product) {
         const clientId = localStorage.getItem('clientId')
         if (!clientId) {
             console.error('Client ID não encontrado. Por favor, faça o login.')
@@ -77,7 +78,7 @@ export class HomeComponent implements OnInit {
             items: [
                 {
                     product: product._id,
-                    quantity
+                    quantity: 1
                 }
             ]
         }

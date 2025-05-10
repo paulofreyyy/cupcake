@@ -41,15 +41,13 @@ mat-card-subtitle {
 mat-card-title {
     font-weight: 500;
 }
-button {
-    margin: 10px auto;
-}
-
-.quantity-field {
-    width: 100%;
-}
 
 mat-card-actions {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+    button{
+        background-color: black;
+        color: #FFF;
+        margin: 5px auto;
+    }
 }
