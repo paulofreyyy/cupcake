@@ -15,10 +15,6 @@ export class OrderService {
         return this.http.post<CreateOrder>(this.apiUrl, order)
     }
 
-    addToCart(clientId: string, data: {productId: string, quantity: number}): Observable<Order>{
-        return this.http.post<Order>(`${this.apiUrl}/cart/${clientId}`, data)
-    }
-
     getOrders(): Observable<Order[]>{
         return this.http.get<Order[]>(this.apiUrl)
     }
@@ -33,5 +29,13 @@ export class OrderService {
 
     deleteOrder(id: string): Observable<Order>{
         return this.http.delete<Order>(`${this.apiUrl}/${id}`)
+    }
+
+    getPendingOrder(clientId: string): Observable<Order>{
+        return this.http.get<Order>(`${this.apiUrl}/cart/${clientId}`)
+    }
+
+    addToCart(clientId: string, data: {productId: string, quantity: number}): Observable<Order>{
+        return this.http.post<Order>(`${this.apiUrl}/cart/${clientId}`, data)
     }
 }

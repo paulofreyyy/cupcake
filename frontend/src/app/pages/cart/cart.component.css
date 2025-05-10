@@ -1,0 +1,139 @@
+.cart-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+mat-card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ea1d2c;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
+
+.empty-cart {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #a6a6a6;
+    padding: 3rem 0;
+    font-family: "Poppins", sans-serif;
+}
+
+mat-list {
+    padding: 0;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    border: none !important;
+}
+
+.cart-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.item-image-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.item-name {
+    margin: 0 0 4px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #3e3e3e;
+    font-family: "Poppins", sans-serif;
+}
+
+.item-description {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #717171;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.4;
+}
+
+.price {
+    margin-top: 8px;
+    font-weight: 700;
+    color: #ea1d2c;
+    font-size: 1.1rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.delete-button {
+    background-color: #f8f8f8;
+    color: #ea1d2c !important;
+    transition: all 0.2s ease;
+}
+
+.delete-button:hover {
+    background-color: #ea1d2c;
+    color: white !important;
+}
+
+.cart-footer {
+    margin-top: 3rem;
+    text-align: right;
+}
+
+.cart-footer p {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #3e3e3e;
+    font-family: "Poppins", sans-serif;
+}
+
+.cart-footer button {
+    margin-left: 1rem;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+}
+
+button[color="primary"] {
+    background-color: #ea1d2c;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+button[color="primary"]:hover {
+    background-color: #d91826;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 29, 44, 0.3);
+}

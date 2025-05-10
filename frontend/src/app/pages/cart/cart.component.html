@@ -1,0 +1,23 @@
+<mat-list-item *ngFor="let item of cartItems" class="cart-item">
+    <div class="item-image-container">
+        <img
+            class="item-image"
+            src="https://media.istockphoto.com/id/167120918/photo/pink-and-white-frosted-cupcake-isolated-on-white.jpg?s=612x612&w=0&k=20&c=o1xFPaMLhmq7y-LczWkePTOP1yotfx6OOT9VHcDNha0="
+            alt="{{ item.product.name }}"
+        />
+    </div>
+
+    <div class="item-info">
+        <h4 class="item-name">{{ item.product.name }}</h4>
+        <p class="item-description">{{ item.product.description }}</p>
+        <p class="price">{{ item.product.value | currency : "BRL" }}</p>
+    </div>
+
+    <div class="item-actions">
+        <app-quantity-input [(value)]="item.quantity"></app-quantity-input>
+
+        <button mat-icon-button class="delete-button">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</mat-list-item>
