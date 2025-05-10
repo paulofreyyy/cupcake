@@ -24,6 +24,11 @@ export class OrdersController {
         return this.ordersService.findOne(id);
     }
 
+    @Post("cart/:clientId")
+    addToCart(@Param('clientId') clientId: string, @Body() body: {productId: string, quantity?: number}){
+        return this.ordersService.addToCart(clientId, body.productId, body.quantity || 1)
+    }
+
     @Put(':id')
     update(@Param('id') id: string, @Body() dto: UpdateOrderDto) {
         return this.ordersService.update(id, dto);

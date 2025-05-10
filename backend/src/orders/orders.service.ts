@@ -37,6 +37,39 @@ export class OrdersService {
         return order;
     }
 
+    async addToCart(clientId: string, productId: string, quantity: number){
+        const product = await this.productModel.findById(productId).exec();
+        if(!product) throw new NotFoundException(`Produto com id ${productId} não encotnrado!`);
+
+        let order = await this.orderModel.findOne({clientId, status: 'pending'});
+
+        if(order){
+            const itemIndex = order.items.findIndex(item => item.product.toString() === productId);
+
+            if(itemIndex >= 0){
+                order.items[itemIndex].quantity += quantity;
+            }else{
+                order.items.push({product: product._id as Types.ObjectId, quantity})
+            }
+
+            order.total += product.value * quantity
+
+            return order.save();
+        }
+
+        const total = product.value * quantity
+        const newOrder = new this.orderModel({
+            clientId,
+            status: 'pending',
+            total,
+            items:[
+                {product: product._id, quantity}
+            ]
+        })
+
+        return newOrder.save()
+    }
+
     async update(id: string, dto: UpdateOrderDto) {
         return this.orderModel.findByIdAndUpdate(id, dto, { new: true });
     }
