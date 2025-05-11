@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateOrder, Order } from '../shared/models/order.model';
+import { CreateOrder, Order, OrderItem, UpdateOrderItem } from '../shared/models/order.model';
 
 @Injectable({
     providedIn: 'root'
@@ -40,5 +40,8 @@ export class OrderService {
     }
     removeItemFromCart(orderId: string, productId: string): Observable<Order> {
         return this.http.delete<Order>(`${this.apiUrl}/cart/${orderId}/item/${productId}`)
+    }
+    updateOrderItems(orderId: string, itens: UpdateOrderItem[]): Observable<Order> {
+        return this.http.patch<Order>(`${this.apiUrl}/${orderId}/itens`, itens)
     }
 }

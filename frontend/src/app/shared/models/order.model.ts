@@ -1,7 +1,7 @@
 import { Product } from "./product.model";
 
 export interface OrderItem {
-    product: Product;  
+    product: Product;
     quantity: number;
     _id: string;
     image: string;
@@ -10,12 +10,12 @@ export interface OrderItem {
 export interface Order {
     _id: string;
     clientId: string;
-    items: OrderItem[]; 
+    items: OrderItem[];
     total: number;
     status: 'pending' | 'paid' | 'shipped' | 'cancelled';
     createdAt: string;
     updatedAt: string;
-    __v: number;  
+    __v: number;
 }
 
 
@@ -23,3 +23,8 @@ export interface CreateOrder {
     clientId: string;
     items: { product: string; quantity: number }[];
 }
+
+export interface UpdateOrderItem {
+    product: string;
+    quantity: number;
+};
