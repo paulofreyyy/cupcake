@@ -49,6 +49,10 @@ export class OrdersService {
         return await this.orderModel.findOne({ clientId, status: 'pending' }).populate('items.product')
     }
 
+    async findCheckoutOrder(clientId: string) {
+        return await this.orderModel.findOne({ clientId, status: 'checkout' }).populate('items.product')
+    }
+
     async addToCart(clientId: string, productId: string, quantity: number) {
         const product = await this.productModel.findById(productId).exec();
         if (!product) throw new NotFoundException(`Produto com id ${productId} não encotnrado!`);
@@ -98,7 +102,7 @@ export class OrdersService {
         return { message: 'Item removido com sucesso!' }
     }
 
-    async updateOrderItens(orderId: string, updatedItens: { product: string, quantity: number }[]) {
+    async checkoutOrder(orderId: string, updatedItens: { product: string, quantity: number }[]) {
         const order = await this.orderModel.findById(orderId).exec();
         if (!order) throw new NotFoundException("Pedido não encontrado!");
 
@@ -122,7 +126,9 @@ export class OrdersService {
 
         order.items = newItems;
         order.total = total;
+        order.status = 'checkout'
         order.markModified('items');
+        order.markModified('status');
 
         return order.save();
     }
