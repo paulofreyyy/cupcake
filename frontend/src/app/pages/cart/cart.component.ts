@@ -10,8 +10,11 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { FormsModule } from "@angular/forms";
 import { OrderService } from "../../services/order.service";
 import { QuantityInputComponent } from "../../components/inputs/quantity/quantity-input.component";
-import { Order, OrderItem } from "../../shared/models/order.model";
+import { Order, OrderItem, UpdateOrderItem } from "../../shared/models/order.model";
 import { NotificationHelper } from "../../shared/helpers/notification-helpers";
+import { Router } from "@angular/router";
+
+
 
 @Component({
     selector: 'app-home',
@@ -34,6 +37,7 @@ import { NotificationHelper } from "../../shared/helpers/notification-helpers";
 export class CartComponent implements OnInit {
     private ordersService = inject(OrderService);
     private notificationHelper = inject(NotificationHelper);
+    private router = inject(Router);
     clientId = localStorage.getItem('clientId') || '';
     pendingOrderId = '';
     total: number = 0;
@@ -71,9 +75,26 @@ export class CartComponent implements OnInit {
                 this.notificationHelper.showSuccess('Item removido com sucesso!')
                 this.loadCart()
             },
-            error: (err)  => {
+            error: (err) => {
                 this.notificationHelper.showError('Erro ao remover item!')
             },
+        })
+    }
+
+    checkout() {
+        if (!this.pendingOrderId) return;
+        const itens: UpdateOrderItem[] = this.cartItems.map(item => ({
+            product: item.product._id,
+            quantity: item.quantity
+        }))
+
+        this.ordersService.updateOrderItems(this.pendingOrderId, itens).subscribe({
+            next: () => {
+                this.router.navigate(['checkout'])
+            },
+            error: () => {
+                this.notificationHelper.showError("Erro ao atualizar pedido antes do checkout")
+            }
         })
     }
 }

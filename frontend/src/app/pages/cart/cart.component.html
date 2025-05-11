@@ -41,7 +41,7 @@
         <p>
             Total: <span>{{ total | currency : "BRL" }}</span>
         </p>
-        <button mat-raised-button>
+        <button mat-raised-button (click)="checkout()">
             Finalizar <mat-icon>check_circle</mat-icon>
         </button>
     </div>

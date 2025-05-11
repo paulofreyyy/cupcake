@@ -14,7 +14,7 @@ export class Orders extends Document {
     total: number;
 
     @Prop({ default: 'pending' })
-    status: 'pending' | 'paid' | 'shipped' | 'cancelled';
+    status: 'pending' | 'paid' | 'checkout' | 'cancelled';
 }
 
 export const OrdersSchema = SchemaFactory.createForClass(Orders)
