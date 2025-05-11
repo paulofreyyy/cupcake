@@ -12,7 +12,7 @@
             <div class="item-info">
                 <h4 class="item-name">{{ item.product.name }}</h4>
                 <p class="item-description">{{ item.product.description }}</p>
-                <p class="price">{{ item.product.value | currency : "BRL" }}</p>
+                <p class="price">{{ item.product.value | currency : "BRL" }}<span>/un</span></p>
             </div>
 
             <div class="item-actions">
@@ -33,3 +33,12 @@
         </div>
     </div>
 </mat-list-item>
+
+<section class="cart-footer">
+    <div class="cart-footer-content">
+        <p>Total: <span>{{ total | currency : "BRL" }}</span></p>
+        <button mat-raised-button>
+            Finalizar <mat-icon >check_circle</mat-icon>
+        </button>
+    </div>
+</section>
