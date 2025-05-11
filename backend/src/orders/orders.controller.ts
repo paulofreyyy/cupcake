@@ -35,7 +35,7 @@ export class OrdersController {
     }
 
     @Get("cart/:clientId")
-    findPendingCart(@Param('clientId') clientId: string){
+    findPendingCart(@Param('clientId') clientId: string) {
         return this.ordersService.findPendingCartByClient(clientId)
     }
 
