@@ -44,4 +44,9 @@ export class OrdersController {
         return this.ordersService.addToCart(clientId, body.productId, body.quantity || 1)
     }
 
+    @Delete('cart/:orderId/item/:product:id')
+    removeItemFromCart(@Param('orderId') orderId: string, @Param('productId') productId: string){
+        return this.removeItemFromCart(orderId, productId)
+    }
+
 }
