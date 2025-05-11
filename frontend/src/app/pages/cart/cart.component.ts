@@ -38,7 +38,6 @@ export class CartComponent implements OnInit {
     cartItems: OrderItem[] = []
 
     ngOnInit(): void {
-        console.log('Carrinho carregado');
         this.loadCart();
     }
 
@@ -50,32 +49,27 @@ export class CartComponent implements OnInit {
                 if (order) {
                     this.cartItems = order.items;
                     this.pendingOrderId = order._id;
-                    this.updateTotal();
+                    this.total = order.total
+                } else {
+                    this.cartItems = [];
+                    this.pendingOrderId = '';
+                    this.total = 0;
                 }
             },
             error: (err: unknown) => console.log('Erro ao carregar carrinho', err)
         })
     }
 
-    updateTotal() {
-        this.total = this.cartItems.reduce((sum, item) => {
-            return sum + item.product.value * item.quantity;
-        }, 0);
-    }
+    removeItem(productId: string) {
+        if (!this.clientId) return;
 
-    // remove(item: OrderItem) {
-    //     // Remover item do carrinho - lógica para remover e atualizar o pedido
-    //     this.ordersService.removeItemFromCart(this.pendingOrderId, item._id).subscribe({
-    //         next: () => {
-    //             console.log('Item removido');
-    //             this.loadCart(); // Recarrega o carrinho após remover o item
-    //         },
-    //         error: (err: unknown) => console.error('Erro ao remover item', err),
-    //     });
-    // }
-
-    checkout() {
-        // Lógica de checkout
-        console.log('Finalizando pedido...');
+        this.ordersService.removeItemFromCart(this.pendingOrderId, productId).subscribe({
+            next: () => {
+                this.loadCart()
+            },
+            error(err) {
+                console.log("Erro ao remover", err);
+            },
+        })
     }
 }

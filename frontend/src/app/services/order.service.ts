@@ -11,31 +11,34 @@ export class OrderService {
 
     constructor(private http: HttpClient) { }
 
-    createOrder(order: CreateOrder): Observable<CreateOrder>{
+    createOrder(order: CreateOrder): Observable<CreateOrder> {
         return this.http.post<CreateOrder>(this.apiUrl, order)
     }
 
-    getOrders(): Observable<Order[]>{
+    getOrders(): Observable<Order[]> {
         return this.http.get<Order[]>(this.apiUrl)
     }
 
-    getOrderById(id: string): Observable<Order>{
+    getOrderById(id: string): Observable<Order> {
         return this.http.get<Order>(`${this.apiUrl}/${id}`)
     }
 
-    updateOrder(id: string, order: Order): Observable<Order>{
+    updateOrder(id: string, order: Order): Observable<Order> {
         return this.http.put<Order>(`${this.apiUrl}/${id}`, order)
     }
 
-    deleteOrder(id: string): Observable<Order>{
+    deleteOrder(id: string): Observable<Order> {
         return this.http.delete<Order>(`${this.apiUrl}/${id}`)
     }
 
-    getPendingOrder(clientId: string): Observable<Order>{
+    getPendingOrder(clientId: string): Observable<Order> {
         return this.http.get<Order>(`${this.apiUrl}/cart/${clientId}`)
     }
 
-    addToCart(clientId: string, data: {productId: string, quantity: number}): Observable<Order>{
+    addToCart(clientId: string, data: { productId: string, quantity: number }): Observable<Order> {
         return this.http.post<Order>(`${this.apiUrl}/cart/${clientId}`, data)
+    }
+    removeItemFromCart(orderId: string, productId: string): Observable<Order> {
+        return this.http.delete<Order>(`${this.apiUrl}/cart/${orderId}/item/${productId}`)
     }
 }
