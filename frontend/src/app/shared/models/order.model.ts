@@ -1,7 +1,7 @@
 import { Product } from "./product.model";
 
 export interface OrderItem {
-    product: Product;  // Produto agora é um objeto completo
+    product: Product;  
     quantity: number;
     _id: string;
 }
@@ -9,12 +9,12 @@ export interface OrderItem {
 export interface Order {
     _id: string;
     clientId: string;
-    items: OrderItem[];  // Array de OrderItem, com produtos completos
+    items: OrderItem[]; 
     total: number;
     status: 'pending' | 'paid' | 'shipped' | 'cancelled';
     createdAt: string;
     updatedAt: string;
-    __v: number;  // Versão, conforme sua estrutura da API
+    __v: number;  
 }
 
 

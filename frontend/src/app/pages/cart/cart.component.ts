@@ -6,16 +6,18 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { FormsModule } from "@angular/forms";
 import { OrderService } from "../../services/order.service";
 import { QuantityInputComponent } from "../../components/inputs/quantity/quantity-input.component";
 import { Order, OrderItem } from "../../shared/models/order.model";
-import { Router } from "@angular/router";
+import { NotificationHelper } from "../../shared/helpers/notification-helpers";
 
 @Component({
     selector: 'app-home',
     templateUrl: './cart.component.html',
     styleUrls: ['./cart.component.css'],
+    standalone: true,
     imports: [
         CommonModule,
         MatCardModule,
@@ -25,12 +27,13 @@ import { Router } from "@angular/router";
         FormsModule,
         MatIconModule,
         MatListModule,
-        QuantityInputComponent
+        QuantityInputComponent,
+        // MatSnackBarModule,
     ],
 })
 export class CartComponent implements OnInit {
-    public ordersService = inject(OrderService);
-    public router = inject(Router);
+    private ordersService = inject(OrderService);
+    private notificationHelper = inject(NotificationHelper);
     clientId = localStorage.getItem('clientId') || '';
     pendingOrderId = '';
     total: number = 0;
@@ -65,10 +68,11 @@ export class CartComponent implements OnInit {
 
         this.ordersService.removeItemFromCart(this.pendingOrderId, productId).subscribe({
             next: () => {
+                this.notificationHelper.showSuccess('Item removido com sucesso!')
                 this.loadCart()
             },
-            error(err) {
-                console.log("Erro ao remover", err);
+            error: (err)  => {
+                this.notificationHelper.showError('Erro ao remover item!')
             },
         })
     }
