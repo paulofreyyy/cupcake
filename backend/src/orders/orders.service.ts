@@ -49,6 +49,10 @@ export class OrdersService {
         return await this.orderModel.findOne({ clientId, status: 'pending' }).populate('items.product')
     }
 
+    async findCheckoutOrder(clientId: string) {
+        return await this.orderModel.findOne({ clientId, status: 'checkout' }).populate('items.product')
+    }
+
     async addToCart(clientId: string, productId: string, quantity: number) {
         const product = await this.productModel.findById(productId).exec();
         if (!product) throw new NotFoundException(`Produto com id ${productId} não encotnrado!`);

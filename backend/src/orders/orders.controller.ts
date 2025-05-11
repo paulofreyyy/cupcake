@@ -39,6 +39,10 @@ export class OrdersController {
     findPendingCart(@Param('clientId') clientId: string) {
         return this.ordersService.findPendingCartByClient(clientId)
     }
+    @Get("cart/checkout/:clientId")
+    findCheckoutOrder(@Param('clientId') clientId: string) {
+        return this.ordersService.findCheckoutOrder(clientId)
+    }
 
     @Post("cart/:clientId")
     addToCart(@Param('clientId') clientId: string, @Body() body: { productId: string, quantity?: number }) {
