@@ -4,6 +4,7 @@ export interface OrderItem {
     product: Product;  
     quantity: number;
     _id: string;
+    image: string;
 }
 
 export interface Order {

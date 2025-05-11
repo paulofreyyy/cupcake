@@ -3,23 +3,27 @@
 <h2>Produtos</h2>
 <div class="products-container">
     <mat-card *ngFor="let product of products" class="product-card">
-        <img
-            mat-card-image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlfauCI-G5IZ5foSvbWbYNpgHqXFGeKJ8QtA&s"
-        />
-        
+        <img mat-card-image src="{{ product.image }}" />
+
         <mat-card-header>
-            <mat-card-subtitle>{{ product.value | currency: 'BRL' }}</mat-card-subtitle>
+            <mat-card-subtitle>{{
+                product.value | currency : "BRL"
+            }}</mat-card-subtitle>
             <mat-card-title>{{ product.name }} </mat-card-title>
         </mat-card-header>
-        
+
         <mat-card-content>
             <p>{{ product.description }}</p>
         </mat-card-content>
 
         <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="addToCart(product)">
-                Adicionar ao carrinho <mat-icon fontIcon="add_shopping_cart"></mat-icon>
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="addToCart(product)"
+            >
+                Adicionar ao carrinho
+                <mat-icon fontIcon="add_shopping_cart"></mat-icon>
             </button>
         </mat-card-actions>
     </mat-card>

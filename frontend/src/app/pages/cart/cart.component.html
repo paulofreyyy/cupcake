@@ -3,7 +3,7 @@
         <div class="item-image-wrapper">
             <img
                 class="item-image"
-                src="https://media.istockphoto.com/id/167120918/photo/pink-and-white-frosted-cupcake-isolated-on-white.jpg?s=612x612&w=0&k=20&c=o1xFPaMLhmq7y-LczWkePTOP1yotfx6OOT9VHcDNha0="
+                src="{{ item.product.image }}"
                 alt="{{ item.product.name }}"
             />
         </div>
@@ -12,7 +12,9 @@
             <div class="item-info">
                 <h4 class="item-name">{{ item.product.name }}</h4>
                 <p class="item-description">{{ item.product.description }}</p>
-                <p class="price">{{ item.product.value | currency : "BRL" }}<span>/un</span></p>
+                <p class="price">
+                    {{ item.product.value | currency : "BRL" }}<span>/un</span>
+                </p>
             </div>
 
             <div class="item-actions">
@@ -36,9 +38,11 @@
 
 <section class="cart-footer">
     <div class="cart-footer-content">
-        <p>Total: <span>{{ total | currency : "BRL" }}</span></p>
+        <p>
+            Total: <span>{{ total | currency : "BRL" }}</span>
+        </p>
         <button mat-raised-button>
-            Finalizar <mat-icon >check_circle</mat-icon>
+            Finalizar <mat-icon>check_circle</mat-icon>
         </button>
     </div>
 </section>
