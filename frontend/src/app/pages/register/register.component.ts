@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { NotificationHelper } from '../../shared/helpers/notification-helpers';
 
 @Component({
     selector: 'app-register',
@@ -27,6 +28,7 @@ import { MatCardModule } from '@angular/material/card';
 export class RegisterComponent {
     private auth = inject(AuthService);
     public router = inject(Router);
+    private notificationHelper = inject(NotificationHelper);
 
     name = '';
     email = '';
@@ -35,7 +37,7 @@ export class RegisterComponent {
     submit() {
         this.auth.register({ name: this.name, email: this.email, password: this.password }).subscribe({
             next: () => this.router.navigate(['/login']),
-            error: () => alert('Erro ao registrar. Tente novamente.')
+            error: () => this.notificationHelper.showError('Erro ao registrar usuário!')
         });
     }
 }

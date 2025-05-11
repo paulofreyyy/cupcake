@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { NotificationHelper } from '../../shared/helpers/notification-helpers';
 
 @Component({
     standalone: true,
@@ -25,6 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 export class LoginComponent {
     private auth = inject(AuthService);
     public router = inject(Router);
+    private notificationHelper = inject(NotificationHelper);
 
     email = '';
     password = '';
@@ -34,7 +36,7 @@ export class LoginComponent {
             next: (res) => {
                 this.router.navigate(['/']);
             },
-            error: (err) => alert('Credenciais inválidas')
+            error: (err) => this.notificationHelper.showError('Credenciais inválidas!')
         });
     }
 }

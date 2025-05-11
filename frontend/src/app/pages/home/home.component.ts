@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { Product } from "../../shared/models/product.model";
 import { ProductService } from "../../services/product.service";
 import { CommonModule } from "@angular/common";
@@ -10,32 +10,32 @@ import { MatIconModule } from "@angular/material/icon";
 import { FormsModule } from "@angular/forms";
 import { OrderService } from "../../services/order.service";
 import { QuantityInputComponent } from "../../components/inputs/quantity/quantity-input.component";
+import { NotificationHelper } from "../../shared/helpers/notification-helpers";
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
     imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatIconModule,
-],
+        CommonModule,
+        MatCardModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatIconModule,
+    ],
 })
 export class HomeComponent implements OnInit {
     products: Product[] = [];
     loading = false;
-    error: string | null = null;
     quantities: { [productId: string]: number } = {}
 
-    constructor(
-        private productService: ProductService,
-        private orderService: OrderService,
+    private productService = inject(ProductService);
+    private orderService = inject(OrderService);
+    private notificationHelper = inject(NotificationHelper);
 
-    ) { }
+    constructor() { }
 
     ngOnInit(): void {
         this.getProducts()
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
                 this.loading = false;
             },
             error: (err) => {
-                this.error = 'Erro ao carregar produtos!';
+                this.notificationHelper.showError('Erro ao carregar produtos!');
                 this.loading = false;
             },
         });
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
                 this.products = this.products.filter((product) => product._id !== id);
             },
             error: (err) => {
-                this.error = 'Erro ao deletar produto';
+                this.notificationHelper.showError('Erro ao deletar produto!');
             }
         });
     }
@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
     addToCart(product: Product) {
         const clientId = localStorage.getItem('clientId')
         if (!clientId) {
-            console.error('Client ID não encontrado. Por favor, faça o login.')
+            this.notificationHelper.showError('Cliente não encontrado. Por favor, faça o login.');
             return
         }
 
@@ -80,10 +80,10 @@ export class HomeComponent implements OnInit {
         this.orderService.addToCart(clientId, data)
             .subscribe({
                 next: () => {
-                    console.log("Item adicionado ao carrinho com sucesso")
+                    this.notificationHelper.showSuccess('Item adicionado ao carrinho!');
                 },
                 error: (err) => {
-                    console.error("Erro ao adicionar item ao carrinho", err)
+                    this.notificationHelper.showError('Erro ao adicionar item ao carrinho!');
                 }
             })
     }
