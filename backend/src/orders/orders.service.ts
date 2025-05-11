@@ -81,4 +81,20 @@ export class OrdersService {
 
         return newOrder.save()
     }
+
+    async removeItemFromCart(orderId: string, productId: string) {
+        const order = await this.orderModel.findById(orderId).exec();
+        if (!order) throw new NotFoundException("Pedido não encontrado!");
+
+        order.items = order.items.filter(item => item.product.toString() !== productId);
+
+        if (order.items.length === 0) {
+            await this.orderModel.findByIdAndDelete(orderId);
+            return { message: 'Item removido e pedido deletado por falta de itens.' }
+        }
+
+        order.markModified('items');
+        await order.save();
+        return { message: 'Item removido com sucesso!' }
+    }
 }
