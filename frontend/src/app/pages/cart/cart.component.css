@@ -108,8 +108,12 @@ mat-list {
     margin: 0.5rem 0 0 0;
     font-weight: 700;
     color: #363636;
+    color: #363636;
     font-size: 1.1rem;
     font-family: "Nunito", sans-serif;
+    span{
+        font-weight: 360;
+    }
     span{
         font-weight: 360;
     }
@@ -124,10 +128,13 @@ mat-list {
 .delete-button {
     background-color: rgba(0, 0, 0, 0.08);
     color: #000000;
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #000000;
     transition: all 0.2s ease;
 }
 
 .delete-button:hover {
+    background-color: #1b1b1b;
     background-color: #1b1b1b;
     color: white !important;
     transform: rotate(8deg);
