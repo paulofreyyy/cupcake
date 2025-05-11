@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { UpdateOrderItemsDto } from './dto/update-order-itens.dto';
 
 @UseGuards(AuthGuard)
 @Controller('orders')
@@ -45,8 +46,13 @@ export class OrdersController {
     }
 
     @Delete('cart/:orderId/item/:productId')
-    removeItemFromCart(@Param('orderId') orderId: string, @Param('productId') productId: string){
+    removeItemFromCart(@Param('orderId') orderId: string, @Param('productId') productId: string) {
         return this.ordersService.removeItemFromCart(orderId, productId)
+    }
+
+    @Patch(':orderId/itens')
+    async updateOrderItems(@Param('orderId') orderId: string, @Body() updatedItems: UpdateOrderItemsDto[],) {
+        return this.ordersService.updateOrderItens(orderId, updatedItems);
     }
 
 }

@@ -97,4 +97,33 @@ export class OrdersService {
         await order.save();
         return { message: 'Item removido com sucesso!' }
     }
+
+    async updateOrderItens(orderId: string, updatedItens: { product: string, quantity: number }[]) {
+        const order = await this.orderModel.findById(orderId).exec();
+        if (!order) throw new NotFoundException("Pedido não encontrado!");
+
+        if (order.status !== 'pending') {
+            throw new Error('Não é possível atualizar um pedido que não está pendente.');
+        }
+
+        let total = 0;
+        const newItems = [];
+
+        for (const item of updatedItens) {
+            const product = await this.productModel.findById(item.product).exec();
+            if (!product) throw new NotFoundException(`Produto com id ${item.product} não encontrado!`);
+
+            total += product.value * item.quantity;
+            newItems.push({
+                product: product._id,
+                quantity: item.quantity
+            });
+        }
+
+        order.items = newItems;
+        order.total = total;
+        order.markModified('items');
+
+        return order.save();
+    }
 }
