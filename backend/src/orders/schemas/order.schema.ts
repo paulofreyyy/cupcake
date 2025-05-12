@@ -15,6 +15,23 @@ export class Orders extends Document {
 
     @Prop({ default: 'pending' })
     status: 'pending' | 'paid' | 'checkout' | 'cancelled';
+
+    @Prop({ type: Object })
+    address: {
+        street: string;
+        number: string;
+        district: string;
+        city: string;
+        state: string;
+        zip: string;
+    };
+
+    @Prop({ type: Object })
+    payment: {
+        paymentMethod: string;
+        total: number;
+        shippingFee: number;
+    };
 }
 
-export const OrdersSchema = SchemaFactory.createForClass(Orders)
+export const OrdersSchema = SchemaFactory.createForClass(Orders);

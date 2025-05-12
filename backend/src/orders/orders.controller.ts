@@ -58,4 +58,14 @@ export class OrdersController {
     async checkoutOrder(@Param('orderId') orderId: string, @Body() updatedItems: UpdateOrderItemsDto[],) {
         return this.ordersService.checkoutOrder(orderId, updatedItems);
     }
+
+    @Patch(':orderId/payment')
+    async orderPayment(
+        @Param('orderId') orderId: string,
+        @Body() dto: UpdateOrderDto,
+    ) {
+        const { status, address, payment } = dto;
+
+        return this.ordersService.orderPayment(orderId, status, address, payment);
+    }
 }

@@ -132,4 +132,27 @@ export class OrdersService {
 
         return order.save();
     }
+
+    async orderPayment(
+        orderId: string,
+        status: 'paid' | 'cancelled',
+        address: { street: string, number: string, district: string, city: string, state: string, zip: string },
+        payment: { total: number, shippingFee: number, paymentMethod: string }
+    ) {
+        const order = await this.orderModel.findById(orderId).exec();
+        if (!order) throw new NotFoundException('Pedido não encontrado');
+
+        order.status = status;
+        order.address = address;
+        order.payment = payment;
+        order.total = payment.total + payment.shippingFee;
+
+        // Marca os campos como modificados, se necessário
+        order.markModified('status');
+        order.markModified('address');
+        order.markModified('payment');
+        order.markModified('total');
+
+        return order.save();
+    }
 }
