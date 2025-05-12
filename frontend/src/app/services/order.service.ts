@@ -47,4 +47,15 @@ export class OrderService {
     checkoutOrder(orderId: string, itens: UpdateOrderItem[]): Observable<Order> {
         return this.http.patch<Order>(`${this.apiUrl}/${orderId}/itens`, itens)
     }
+    orderPayment(orderId: string, data: {
+        address: string;
+        status: 'paid' | 'cancelled';
+        payment: {
+            paymentMethod: string;
+            shippingFee: number;
+            total: number;
+        };
+    }): Observable<Order> {
+        return this.http.patch<Order>(`${this.apiUrl}/${orderId}/payment`, data)
+    }
 }

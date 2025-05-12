@@ -36,49 +36,53 @@
             </div>
         </div>
 
-        <mat-divider ></mat-divider>
+        <mat-divider></mat-divider>
 
-        <h2>Endereço de Entrega</h2>
         <form [formGroup]="addressForm" class="address-form">
-            <mat-form-field appearance="outline">
-                <mat-label>Rua</mat-label>
-                <input matInput formControlName="street" />
-            </mat-form-field>
+            <h2>Endereço de Entrega</h2>
+            <div class="address-form-content">
+                <mat-form-field appearance="outline">
+                    <mat-label>Rua</mat-label>
+                    <input matInput formControlName="street" />
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Número</mat-label>
-                <input matInput formControlName="number" />
-            </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Número</mat-label>
+                    <input matInput formControlName="number" />
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Bairro</mat-label>
-                <input matInput formControlName="district" />
-            </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Bairro</mat-label>
+                    <input matInput formControlName="district" />
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Cidade</mat-label>
-                <input matInput formControlName="city" />
-            </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Cidade</mat-label>
+                    <input matInput formControlName="city" />
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Estado</mat-label>
-                <input matInput formControlName="state" />
-            </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Estado</mat-label>
+                    <input matInput formControlName="state" />
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>CEP</mat-label>
-                <input matInput formControlName="zip" />
-            </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>CEP</mat-label>
+                    <input matInput formControlName="zip" />
+                </mat-form-field>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div>
+                <h2>Forma de Pagamento</h2>
+                <mat-radio-group formControlName="paymentMethod">
+                    <mat-radio-button value="pix">PIX</mat-radio-button>
+                    <mat-radio-button value="card">Cartão</mat-radio-button>
+                    <mat-radio-button value="cash">Dinheiro</mat-radio-button>
+                </mat-radio-group>
+            </div>
         </form>
-
-        <mat-divider ></mat-divider>
-
-        <h2>Forma de Pagamento</h2>
-        <mat-radio-group formControlName="paymentMethod">
-            <mat-radio-button value="pix">PIX</mat-radio-button>
-            <mat-radio-button value="card">Cartão</mat-radio-button>
-            <mat-radio-button value="cash">Dinheiro</mat-radio-button>
-        </mat-radio-group>
     </section>
 
     <section class="checkout-footer">

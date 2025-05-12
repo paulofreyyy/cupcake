@@ -90,9 +90,15 @@
     }
 
     .address-form {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1rem;
+        display: flex;
+        flex-direction: column;
+
+        .address-form-content{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
 
         mat-form-field {
             width: 100%;
