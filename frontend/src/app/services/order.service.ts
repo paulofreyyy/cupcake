@@ -34,6 +34,9 @@ export class OrderService {
     getPendingOrder(clientId: string): Observable<Order> {
         return this.http.get<Order>(`${this.apiUrl}/cart/${clientId}`)
     }
+    getCheckoutOrder(clientId: string): Observable<Order> {
+        return this.http.get<Order>(`${this.apiUrl}/cart/checkout/${clientId}`)
+    }
 
     addToCart(clientId: string, data: { productId: string, quantity: number }): Observable<Order> {
         return this.http.post<Order>(`${this.apiUrl}/cart/${clientId}`, data)
@@ -41,7 +44,7 @@ export class OrderService {
     removeItemFromCart(orderId: string, productId: string): Observable<Order> {
         return this.http.delete<Order>(`${this.apiUrl}/cart/${orderId}/item/${productId}`)
     }
-    updateOrderItems(orderId: string, itens: UpdateOrderItem[]): Observable<Order> {
+    checkoutOrder(orderId: string, itens: UpdateOrderItem[]): Observable<Order> {
         return this.http.patch<Order>(`${this.apiUrl}/${orderId}/itens`, itens)
     }
 }

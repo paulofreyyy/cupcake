@@ -88,9 +88,9 @@ export class CartComponent implements OnInit {
             quantity: item.quantity
         }))
 
-        this.ordersService.updateOrderItems(this.pendingOrderId, itens).subscribe({
+        this.ordersService.checkoutOrder(this.pendingOrderId, itens).subscribe({
             next: () => {
-                this.router.navigate(['checkout'])
+                this.router.navigate([`checkout/${this.pendingOrderId}`])
             },
             error: () => {
                 this.notificationHelper.showError("Erro ao atualizar pedido antes do checkout")

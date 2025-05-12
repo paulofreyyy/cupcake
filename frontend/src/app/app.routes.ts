@@ -7,9 +7,9 @@ import { CartComponent } from './pages/cart/cart.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent, canActivate: [AuthGuard]},
-    {path: 'carrinho', component: CartComponent, canActivate: [AuthGuard]},
-    {path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard]},
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent}
+    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'carrinho', component: CartComponent, canActivate: [AuthGuard] },
+    { path: 'checkout/:orderId', component: CheckoutComponent, canActivate: [AuthGuard] },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent }
 ]
