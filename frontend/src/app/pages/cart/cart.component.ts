@@ -56,7 +56,7 @@ export class CartComponent implements OnInit {
                 if (order) {
                     this.cartItems = order.items;
                     this.pendingOrderId = order._id;
-                    this.total = order.total
+                    this.total = order.orderTotal
                 } else {
                     this.cartItems = [];
                     this.pendingOrderId = '';

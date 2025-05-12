@@ -11,7 +11,7 @@ export interface Order {
     _id: string;
     clientId: string;
     items: OrderItem[];
-    total: number;
+    orderTotal: number;
     status: 'pending' | 'paid' | 'shipped' | 'cancelled';
     createdAt: string;
     updatedAt: string;

@@ -11,7 +11,7 @@ export class Orders extends Document {
     items: { product: Products | Types.ObjectId; quantity: number }[];
 
     @Prop()
-    total: number;
+    orderTotal: number;
 
     @Prop({ default: 'pending' })
     status: 'pending' | 'paid' | 'checkout' | 'cancelled';

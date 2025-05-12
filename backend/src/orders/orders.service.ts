@@ -68,7 +68,7 @@ export class OrdersService {
                 order.items.push({ product: product._id as Types.ObjectId, quantity })
             }
 
-            order.total += product.value * quantity
+            order.orderTotal += product.value * quantity
 
             return order.save();
         }
@@ -125,7 +125,7 @@ export class OrdersService {
         }
 
         order.items = newItems;
-        order.total = total;
+        order.orderTotal = total;
         order.status = 'checkout'
         order.markModified('items');
         order.markModified('status');
@@ -145,7 +145,7 @@ export class OrdersService {
         order.status = status;
         order.address = address;
         order.payment = payment;
-        order.total = payment.total + payment.shippingFee;
+        order.orderTotal = payment.total + payment.shippingFee;
 
         // Marca os campos como modificados, se necessário
         order.markModified('status');

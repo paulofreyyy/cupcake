@@ -46,14 +46,14 @@ export class CheckoutComponent implements OnInit {
             city: [''],
             state: [''],
             zip: [''],
-            paymentMethod: ['pix'],
+            paymentMethod: [''],
         });
         this.ordersService.getOrderById(this.orderId).subscribe({
             next: (data) => {
                 this.cartItems = data.items
-                this.total = data.total
+                this.total = data.orderTotal
             },
-            error:() =>{
+            error: () => {
                 console.log("Erro ao buscar o pedido")
             }
         })
@@ -62,8 +62,28 @@ export class CheckoutComponent implements OnInit {
     }
 
     confirmOrder() {
-        const address = this.addressForm.value;
-        // enviar dados + cartItems para o backend
-        console.log('Confirmando pedido com:', { address, cartItems: this.cartItems });
+        const formValues = this.addressForm.value;
+
+        const address = `${formValues.street}, ${formValues.number} - ${formValues.district}, ${formValues.city} - ${formValues.state}, ${formValues.zip}`;
+
+        const payload = {
+            address,
+            status: 'paid' as const,
+            payment: {
+                paymentMethod: formValues.paymentMethod,
+                shippingFee: this.frete,
+                total: this.total + this.frete,
+            },
+        };
+
+        this.ordersService.orderPayment(this.orderId, payload).subscribe({
+            next: (updatedOrder) => {
+                console.log('Pedido confirmado com sucesso:', updatedOrder);
+                // redirecionar, limpar carrinho, etc.
+            },
+            error: (err) => {
+                console.error('Erro ao confirmar pedido:', err);
+            }
+        });
     }
 }
