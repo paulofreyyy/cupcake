@@ -20,6 +20,11 @@ export class OrdersController {
         return this.ordersService.findAll();
     }
 
+    @Get(':clientId/status/:status')
+    findOrdersByStatus(@Param('clientId') clientId: string, @Param('status') status: string){
+        return this.ordersService.findOrdersByStatus(clientId, status)
+    }
+
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.ordersService.findOne(id);

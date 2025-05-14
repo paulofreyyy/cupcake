@@ -37,6 +37,12 @@ export class OrdersService {
         return order;
     }
 
+    async findOrdersByStatus(clientId: string, status: string) {
+        const order = await this.orderModel.find({clientId, status}).populate('items.product').populate('clientId');
+        if (!order) throw new NotFoundException('Order not found');
+        return order;
+    }
+
     async update(id: string, dto: UpdateOrderDto) {
         return this.orderModel.findByIdAndUpdate(id, dto, { new: true });
     }
