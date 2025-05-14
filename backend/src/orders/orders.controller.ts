@@ -25,6 +25,11 @@ export class OrdersController {
         return this.ordersService.findOrdersByStatus(clientId, status)
     }
 
+    @Get(':clientId/orderHistory')
+    findUserOrderHistory(@Param('clientId') clientId: string){
+        return this.ordersService.findUserOrderHistory(clientId)
+    }
+
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.ordersService.findOne(id);
