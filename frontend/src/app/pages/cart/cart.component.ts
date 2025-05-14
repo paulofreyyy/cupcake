@@ -92,8 +92,8 @@ export class CartComponent implements OnInit {
             next: () => {
                 this.router.navigate([`checkout/${this.pendingOrderId}`])
             },
-            error: () => {
-                this.notificationHelper.showError("Erro ao atualizar pedido antes do checkout")
+            error: (err) => {
+                this.notificationHelper.showError(err.error.message)
             }
         })
     }

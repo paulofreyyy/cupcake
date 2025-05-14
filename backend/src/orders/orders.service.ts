@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -14,16 +14,16 @@ export class OrdersService {
     ) { }
 
     async create(dto: CreateOrderDto) {
-        let total = 0;
+        let orderTotal = 0;
 
         for (const item of dto.items) {
             const product = await this.productModel.findById(item.product).exec();
             if (!product) throw new NotFoundException(`Produto com id ${item.product} não encontrado!`);
 
-            total += product.value * item.quantity
+            orderTotal += product.value * item.quantity
         }
 
-        const created = new this.orderModel({ ...dto, total });
+        const created = new this.orderModel({ ...dto, orderTotal });
         return created.save();
     }
 
@@ -33,6 +33,12 @@ export class OrdersService {
 
     async findOne(id: string) {
         const order = await this.orderModel.findById(id).populate('items.product').populate('clientId');
+        if (!order) throw new NotFoundException('Order not found');
+        return order;
+    }
+
+    async findOrdersByStatus(clientId: string, status: string) {
+        const order = await this.orderModel.find({ clientId, status }).populate('items.product').populate('clientId');
         if (!order) throw new NotFoundException('Order not found');
         return order;
     }
@@ -68,16 +74,16 @@ export class OrdersService {
                 order.items.push({ product: product._id as Types.ObjectId, quantity })
             }
 
-            order.orderTotal += product.value * quantity
+            order.orderTotal = (order.orderTotal || 0) + product.value * quantity;
 
             return order.save();
         }
 
-        const total = product.value * quantity
+        const orderTotal = product.value * quantity
         const newOrder = new this.orderModel({
             clientId,
             status: 'pending',
-            total,
+            orderTotal,
             items: [
                 { product: product._id, quantity }
             ]
@@ -110,14 +116,29 @@ export class OrdersService {
             throw new Error('Não é possível atualizar um pedido que não está pendente.');
         }
 
-        let total = 0;
+        // Verifica se já existe uma outra order com status 'checkout' para o mesmo usuário
+        const existingCheckout = await this.orderModel.findOne({
+            clientId: order.clientId,
+            status: 'checkout',
+            _id: { $ne: order._id }, // garante que não está verificando a própria order
+        }).exec();
+
+        if (existingCheckout) {
+            throw new ConflictException('Já existe um pedido em checkout, finalize antes de realizar um novo pedido.');
+        }
+
+        let orderTotal = 0;
         const newItems = [];
 
         for (const item of updatedItens) {
             const product = await this.productModel.findById(item.product).exec();
             if (!product) throw new NotFoundException(`Produto com id ${item.product} não encontrado!`);
 
-            total += product.value * item.quantity;
+            if (typeof product.value !== 'number' || isNaN(product.value)) {
+                throw new Error(`Produto com id ${item.product} possui um valor inválido.`);
+            }
+
+            orderTotal += product.value * item.quantity;
             newItems.push({
                 product: product._id,
                 quantity: item.quantity
@@ -125,7 +146,7 @@ export class OrdersService {
         }
 
         order.items = newItems;
-        order.orderTotal = total;
+        order.orderTotal = orderTotal;
         order.status = 'checkout'
         order.markModified('items');
         order.markModified('status');
@@ -151,7 +172,7 @@ export class OrdersService {
         order.markModified('status');
         order.markModified('address');
         order.markModified('payment');
-        order.markModified('total');
+        order.markModified('orderTotal');
 
         return order.save();
     }
