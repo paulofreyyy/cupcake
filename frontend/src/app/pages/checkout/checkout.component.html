@@ -1,8 +1,15 @@
 <div class="checkout-container">
-    <section class="checkout-page">
-        <div class="summary">
-            <h2>Resumo do Pedido</h2>
+    <!-- Header (optional) -->
+    <div class="checkout-header">
+        <button mat-icon-button (click)="location.back()">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+        <h2>Checkout</h2>
+    </div>
 
+    <section class="checkout-page">
+        <!-- Itens no carrinho -->
+        <div class="order-items">
             <mat-list-item *ngFor="let item of cartItems" class="cart-item">
                 <div class="item-container">
                     <div class="item-image-wrapper">
@@ -12,7 +19,6 @@
                             [alt]="item.product.name"
                         />
                     </div>
-
                     <div class="item-content">
                         <div class="item-info">
                             <h4 class="item-name">{{ item.product.name }}</h4>
@@ -30,53 +36,49 @@
                     </div>
                 </div>
             </mat-list-item>
-
             <div class="order-total">
-                <h3>Total: {{ total | currency : "BRL" }}</h3>
+                <h3>Total dos itens: {{ total | currency : "BRL" }}</h3>
             </div>
         </div>
 
-        <mat-divider></mat-divider>
-
+        <!-- Formulário de endereço e pagamento -->
         <form [formGroup]="addressForm" class="address-form">
-            <h2>Endereço de Entrega</h2>
-            <div class="address-form-content">
-                <mat-form-field appearance="outline">
-                    <mat-label>Rua</mat-label>
-                    <input matInput formControlName="street" />
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Número</mat-label>
-                    <input matInput formControlName="number" />
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Bairro</mat-label>
-                    <input matInput formControlName="district" />
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Cidade</mat-label>
-                    <input matInput formControlName="city" />
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Estado</mat-label>
-                    <input matInput formControlName="state" />
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>CEP</mat-label>
-                    <input matInput formControlName="zip" />
-                </mat-form-field>
+            <div class="form-card">
+                <h2>Endereço de Entrega</h2>
+                <div class="address-form-content">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Rua</mat-label>
+                        <input matInput formControlName="street"/>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Número</mat-label>
+                        <input matInput formControlName="number" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Bairro</mat-label>
+                        <input matInput formControlName="district" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Cidade</mat-label>
+                        <input matInput formControlName="city" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Estado</mat-label>
+                        <input matInput formControlName="state" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>CEP</mat-label>
+                        <input matInput formControlName="zip" />
+                    </mat-form-field>
+                </div>
             </div>
 
-            <mat-divider></mat-divider>
-
-            <div>
+            <div class="form-card">
                 <h2>Forma de Pagamento</h2>
-                <mat-radio-group formControlName="paymentMethod">
+                <mat-radio-group
+                    formControlName="paymentMethod"
+                    class="payment-group"
+                >
                     <mat-radio-button value="pix">PIX</mat-radio-button>
                     <mat-radio-button value="card">Cartão</mat-radio-button>
                     <mat-radio-button value="cash">Dinheiro</mat-radio-button>
