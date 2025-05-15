@@ -1,12 +1,11 @@
-import { Component, inject, Inject, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, inject, OnInit } from "@angular/core";
+import { CommonModule, Location } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { FormsModule } from "@angular/forms";
 import { OrderService } from "../../services/order.service";
 import { QuantityInputComponent } from "../../components/inputs/quantity/quantity-input.component";
@@ -32,7 +31,6 @@ import { CartService } from "../../services/cart.service";
         MatIconModule,
         MatListModule,
         QuantityInputComponent,
-        // MatSnackBarModule,
     ],
 })
 export class CartComponent implements OnInit {
@@ -40,6 +38,7 @@ export class CartComponent implements OnInit {
     private cartService = inject(CartService);
     private notificationHelper = inject(NotificationHelper);
     private router = inject(Router);
+    public location = inject(Location);
     clientId = localStorage.getItem('clientId') || '';
     pendingOrderId = '';
     total: number = 0;

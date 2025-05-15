@@ -1,58 +1,47 @@
-/* Fontes */
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap");
-
-/* Estilos do container principal */
 .cart-container {
     max-width: 800px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    border-radius: 16px;
-    background-color: #ffffff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    margin: 0 auto;
+    .cart-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        h2 {
+            font-weight: 480;
+        }
+    }
+
+    /* Carrinho vazio */
+    .empty-cart {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #717171;
+        padding: 3rem 0;
+        font-family: "Nunito", sans-serif;
+    }
+
+    /* Estilos do item do carrinho */
+    .cart-item {
+        height: auto !important;
+        margin-bottom: 1rem;
+        border-radius: 12px;
+        overflow: visible;
+        transition: transform 0.2s ease;
+
+        .item-container {
+            display: flex;
+            padding: 1rem;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            max-width: 768px;
+            margin: 20px auto;
+        }
+    }
 }
 
-mat-card-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #ea1d2c;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    font-family: "Nunito", sans-serif;
-    letter-spacing: -0.5px;
-}
 
-.empty-cart {
-    text-align: center;
-    font-size: 1.1rem;
-    color: #717171;
-    padding: 3rem 0;
-    font-family: "Nunito", sans-serif;
-}
-
-mat-list {
-    padding: 0;
-}
-
-/* Estilos do item do carrinho */
-.cart-item {
-    height: auto !important;
-    margin-bottom: 1rem;
-    border-radius: 12px;
-    overflow: visible;
-    transition: transform 0.2s ease;
-}
-
-.item-container {
-    display: flex;
-    padding: 1rem;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-    border: 1px solid #f0f0f0;
-    transition: all 0.3s ease;
-    max-width: 768px;
-    margin: 20px auto;
-}
 
 .item-image-wrapper {
     width: 90px;
@@ -111,10 +100,10 @@ mat-list {
     color: #363636;
     font-size: 1.1rem;
     font-family: "Nunito", sans-serif;
-    span{
+    span {
         font-weight: 360;
     }
-    span{
+    span {
         font-weight: 360;
     }
 }
@@ -126,46 +115,14 @@ mat-list {
 }
 
 .delete-button {
-    background-color: rgba(0, 0, 0, 0.08);
-    color: #000000;
-    background-color: rgba(0, 0, 0, 0.08);
     color: #000000;
     transition: all 0.2s ease;
 }
 
 .delete-button:hover {
     background-color: #1b1b1b;
-    background-color: #1b1b1b;
     color: white !important;
     transform: rotate(8deg);
-}
-
-/* Estilos do rodapé do carrinho */
-.cart-footer {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px dashed #eaeaea;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.cart-footer p {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-    color: #333333;
-    font-family: "Nunito", sans-serif;
-}
-
-.cart-footer button {
-    margin-left: 0.75rem;
-    padding: 0.75rem 1.75rem;
-    border-radius: 50px;
-    font-weight: 600;
-    font-family: "Nunito", sans-serif;
-    text-transform: none;
-    letter-spacing: 0;
 }
 
 /* Footer */
@@ -175,8 +132,8 @@ mat-list {
     width: 100%;
     bottom: 0;
     padding: 5px 0;
-    background-color: #FFF;
-    
+    background-color: #fff;
+
     .cart-footer-content {
         display: flex;
         flex-direction: row;
@@ -185,20 +142,19 @@ mat-list {
         width: 768px;
         margin: 0 auto;
 
-        button{
+        button {
             background-color: black;
-            color: #FFF;
+            color: #fff;
         }
 
-        p{
+        p {
             font-weight: 600;
             font-size: 1.2rem;
-            span{
+            span {
                 font-weight: 360;
             }
         }
     }
-
 }
 
 /* Responsividade */

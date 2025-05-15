@@ -1,47 +1,64 @@
-<section *ngIf="!!cartItems">
-    <p style="text-align: center; font-size: 20px;">Seu carrinho está vazio.</p>
+<section class="cart-container">
+    <!-- Header -->
+    <div class="cart-header">
+        <button mat-icon-button (click)="location.back()">
+            <mat-icon> chevron_left </mat-icon>
+        </button>
+        <h2>Seu carrinho</h2>
+    </div>
+
+    <!-- Carrinho vazio -->
+    <section *ngIf="cartItems.length === 0">
+        <p style="text-align: center; font-size: 20px">
+            Seu carrinho está vazio.
+        </p>
+    </section>
+
+    <!-- Itens do carrinho -->
+    <mat-list-item *ngFor="let item of cartItems" class="cart-item">
+        <div class="item-container">
+            <div class="item-image-wrapper">
+                <img
+                    class="item-image"
+                    src="{{ item.product.image }}"
+                    alt="{{ item.product.name }}"
+                />
+            </div>
+
+            <div class="item-content">
+                <div class="item-info">
+                    <h4 class="item-name">{{ item.product.name }}</h4>
+                    <p class="item-description">
+                        {{ item.product.description }}
+                    </p>
+                    <p class="price">
+                        {{ item.product.value | currency : "BRL"
+                        }}<span>/un</span>
+                    </p>
+                </div>
+
+                <div class="item-actions">
+                    <app-quantity-input
+                        [(value)]="item.quantity"
+                        (valueChange)="updateTotal()"
+                    ></app-quantity-input>
+
+                    <button
+                        mat-icon-button
+                        class="delete-button"
+                        aria-label="Remover item"
+                    >
+                        <mat-icon (click)="removeItem(item.product._id)"
+                            >delete</mat-icon
+                        >
+                    </button>
+                </div>
+            </div>
+        </div>
+    </mat-list-item>
 </section>
 
-<mat-list-item *ngFor="let item of cartItems" class="cart-item">
-    <div class="item-container">
-        <div class="item-image-wrapper">
-            <img
-                class="item-image"
-                src="{{ item.product.image }}"
-                alt="{{ item.product.name }}"
-            />
-        </div>
-
-        <div class="item-content">
-            <div class="item-info">
-                <h4 class="item-name">{{ item.product.name }}</h4>
-                <p class="item-description">{{ item.product.description }}</p>
-                <p class="price">
-                    {{ item.product.value | currency : "BRL" }}<span>/un</span>
-                </p>
-            </div>
-
-            <div class="item-actions">
-                <app-quantity-input
-                    [(value)]="item.quantity"
-                    (valueChange)="updateTotal()"
-                ></app-quantity-input>
-
-                <button
-                    mat-icon-button
-                    class="delete-button"
-                    aria-label="Remover item"
-                >
-                    <mat-icon (click)="removeItem(item.product._id)"
-                        >delete</mat-icon
-                    >
-                </button>
-            </div>
-        </div>
-    </div>
-</mat-list-item>
-
-<section class="cart-footer">
+<section class="cart-footer" *ngIf="cartItems.length !== 0">
     <div class="cart-footer-content">
         <p>
             Total: <span>{{ total | currency : "BRL" }}</span>
