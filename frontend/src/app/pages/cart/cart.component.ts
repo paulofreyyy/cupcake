@@ -13,6 +13,7 @@ import { QuantityInputComponent } from "../../components/inputs/quantity/quantit
 import { Order, OrderItem, UpdateOrderItem } from "../../shared/models/order.model";
 import { NotificationHelper } from "../../shared/helpers/notification-helpers";
 import { Router } from "@angular/router";
+import { CartService } from "../../services/cart.service";
 
 
 
@@ -36,6 +37,7 @@ import { Router } from "@angular/router";
 })
 export class CartComponent implements OnInit {
     private ordersService = inject(OrderService);
+    private cartService = inject(CartService);
     private notificationHelper = inject(NotificationHelper);
     private router = inject(Router);
     clientId = localStorage.getItem('clientId') || '';
@@ -57,6 +59,8 @@ export class CartComponent implements OnInit {
                     this.cartItems = order.items;
                     this.pendingOrderId = order._id;
                     this.total = order.orderTotal
+
+                    // this.cartService.refresh
                 } else {
                     this.cartItems = [];
                     this.pendingOrderId = '';
@@ -66,13 +70,14 @@ export class CartComponent implements OnInit {
             error: (err: unknown) => console.log('Erro ao carregar carrinho', err)
         })
     }
-
+    
     removeItem(productId: string) {
         if (!this.clientId) return;
-
+        
         this.ordersService.removeItemFromCart(this.pendingOrderId, productId).subscribe({
             next: () => {
                 this.notificationHelper.showSuccess('Item removido com sucesso!')
+                this.cartService.refresh()
                 this.loadCart()
             },
             error: (err) => {
