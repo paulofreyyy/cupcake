@@ -33,7 +33,7 @@ import { StatusChipComponent } from "../../components/statusChip/status-chip.com
 export class OrdersComponent implements OnInit {
     private ordersService = inject(OrderService);
     private notificationHelper = inject(NotificationHelper);
-    private router = inject(Router);
+    public router = inject(Router);
     clientId = localStorage.getItem('clientId') || '';
 
     Orders: Order[] = []
@@ -63,9 +63,5 @@ export class OrdersComponent implements OnInit {
 
     hasNoCheckoutOrder() {
         return this.Orders.filter(order => order.status !== 'checkout' && order.status !== 'pending')
-    }
-
-    goToCheckout(orderId: string){
-        this.router.navigate([`/checkout/${orderId}`])
     }
 }

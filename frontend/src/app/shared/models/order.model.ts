@@ -28,7 +28,7 @@ export interface Order {
     items: OrderItem[];
     orderTotal: number;
     status: 'pending' | 'paid' | 'checkout' | 'cancelled';
-    address: Address;
+    address: string;
     payment: Payment;
     createdAt: string;
     updatedAt: string;
