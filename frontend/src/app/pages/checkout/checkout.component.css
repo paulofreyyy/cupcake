@@ -1,125 +1,127 @@
 .checkout-container {
-    font-family: 'Inter', sans-serif;
-    background-color: #f8f9fb;
-    padding: 2rem 1rem;
-    min-height: 100vh;
-}
-
-.checkout-page {
-    max-width: 768px;
+    max-width: 800px;
     margin: 0 auto;
-    margin-bottom: 80px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    padding: 1rem;
 
-    h2 {
-        font-size: 1.6rem;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        color: #1f2937;
+    .checkout-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 1rem;
+        h2 {
+            font-weight: 480;
+            flex: 1;
+        }
     }
 
-    .summary {
-        margin-bottom: 2rem;
+    .checkout-page {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-bottom: 80px;
 
-        .cart-item {
-            padding: 1rem 0;
-            border-bottom: 1px solid #e5e7eb;
+        .order-items {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            border-radius: 12px;
+            background-color: #fff;
+            padding: 2rem;
 
-            .item-container {
-                display: flex;
-                gap: 1rem;
-                align-items: flex-start;
+            h2 {
+                font-weight: 500;
+                margin-bottom: 1rem;
             }
 
-            .item-image-wrapper {
-                width: 72px;
-                height: 72px;
-                border-radius: 8px;
-                overflow: hidden;
+            .cart-item {
+                padding: 1rem 0;
+                border-bottom: 1px solid #e5e7eb;
 
-                .item-image {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-            }
-
-            .item-content {
-                .item-name {
-                    font-size: 1.1rem;
-                    font-weight: 600;
-                    color: #111827;
-                    margin: 0;
+                .item-container {
+                    display: flex;
+                    gap: 1rem;
+                    align-items: flex-start;
                 }
 
-                .item-description {
-                    font-size: 0.9rem;
-                    color: #6b7280;
-                    margin: 0.2rem 0;
-                }
+                .item-image-wrapper {
+                    width: 72px;
+                    height: 72px;
+                    border-radius: 8px;
+                    overflow: hidden;
 
-                .price {
-                    font-size: 1rem;
-                    color: #374151;
-
-                    span {
-                        color: #9ca3af;
+                    .item-image {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
                     }
                 }
 
-                .quantity {
-                    font-size: 0.85rem;
-                    color: #4b5563;
-                    margin-top: 0.2rem;
+                .item-content {
+                    .item-name {
+                        font-size: 1.1rem;
+                        font-weight: 500;
+                        color: #111827;
+                        margin: 0;
+                    }
+                    .item-description {
+                        font-size: 0.9rem;
+                        color: #6b7280;
+                        margin: 0.2rem 0;
+                    }
+                    .price {
+                        font-size: 1rem;
+                        color: #374151;
+                        span {
+                            color: #9ca3af;
+                        }
+                    }
+                    .quantity {
+                        font-size: 0.85rem;
+                        color: #4b5563;
+                        margin-top: 0.2rem;
+                    }
+                }
+            }
+
+            .order-total {
+                margin-top: 1rem;
+                h3 {
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    color: #111827;
                 }
             }
         }
 
-        .order-total {
-            margin-top: 1rem;
+        .address-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
 
-            h3 {
-                font-size: 1.2rem;
-                font-weight: 600;
-                color: #111827;
+            .form-card {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+                border-radius: 12px;
+                background-color: #fff;
+                padding: 2rem;
+
+                h2 {
+                    font-weight: 500;
+                    margin-bottom: 1rem;
+                }
+
+                .address-form-content {
+                    display: grid;
+                    grid-template-columns: repeat(
+                        auto-fill,
+                        minmax(160px, 1fr)
+                    );
+                    gap: 1rem;
+                }
+
+                .payment-group {
+                    display: flex;
+                    gap: 1.5rem;
+                }
             }
         }
-    }
-
-    .address-form {
-        display: flex;
-        flex-direction: column;
-
-        .address-form-content{
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-
-        mat-form-field {
-            width: 100%;
-        }
-    }
-
-    mat-radio-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        margin-top: 1.5rem;
-        padding-left: 0.25rem;
-
-        mat-radio-button {
-            font-size: 1rem;
-            color: #374151;
-        }
-    }
-
-    mat-divider {
-        margin: 2rem 0;
     }
 }
 
@@ -147,14 +149,14 @@
             color: #374151;
 
             span {
-                font-weight: 600;
+                font-weight: 500;
             }
         }
 
         button {
             background-color: #111827;
             color: #ffffff;
-            font-weight: 600;
+            font-weight: 500;
             padding: 0.75rem 1.5rem;
             border-radius: 8px;
             font-size: 1rem;

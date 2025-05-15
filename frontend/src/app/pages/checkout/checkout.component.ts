@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,17 +36,18 @@ export class CheckoutComponent implements OnInit {
     private fb = inject(FormBuilder)
     private ordersService = inject(OrderService)
     private route = inject(ActivatedRoute)
+    public location = inject(Location)
     orderId = this.route.snapshot.paramMap.get('orderId')!
 
     ngOnInit(): void {
         this.addressForm = this.fb.group({
-            street: [''],
-            number: [''],
-            district: [''],
-            city: [''],
-            state: [''],
-            zip: [''],
-            paymentMethod: [''],
+            street: ['Rua das Fiandeiras'],
+            number: ['100'],
+            district: ['Vila Olímpia'],
+            city: ['São Paulo'],
+            state: ['SP'],
+            zip: ['04545005'],
+            paymentMethod: ['pix'],
         });
         this.ordersService.getOrderById(this.orderId).subscribe({
             next: (data) => {
