@@ -1,102 +1,140 @@
 /* Estilos do container principal */
 .container {
-    max-width: 800px;
+    max-width: 1100px;
     margin: 2rem auto;
-}
+    .orders-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        h2 {
+            font-weight: 480;
+        }
+    }
 
+    .order-items {
+        h2 {
+            font-weight: 500;
+        }
+    }
+}
 
 .item-container {
     display: flex;
-    padding: 1rem;
+    flex-direction: column;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     border: 1px solid #f0f0f0;
     transition: all 0.3s ease;
-    max-width: 768px;
+    max-width: 100%;
     margin: 20px auto;
-}
 
-.item-content {
-    display: flex;
-    flex: 1;
-    margin-left: 1rem;
-    justify-content: space-between;
-    align-items: center;
-}
+    .item-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgb(238, 238, 238);
+        border-radius: 10px 10px 0 0;
+        padding: 15px;
 
-.item-info {
-    flex: 1;
-    min-width: 0;
-    padding-right: 1rem;
-}
-
-.item-name {
-    margin: 0 0 0.25rem 0;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #333333;
-    font-family: "Nunito", sans-serif;
-}
-
-.item-description {
-    margin: 0 0 0.5rem 0;
-    font-size: 0.9rem;
-    color: #717171;
-    font-family: "Nunito", sans-serif;
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.order-total {
-    margin: 0.5rem 0 0 0;
-    font-weight: 700;
-    color: #363636;
-    color: #363636;
-    font-size: 1.1rem;
-    font-family: "Nunito", sans-serif;
-    span{
-        font-weight: 360;
-    }
-    span{
-        font-weight: 360;
-    }
-}
-
-.item-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-/* Responsividade */
-@media (max-width: 600px) {
-    .item-container {
-        flex-direction: column;
-    }
-
-    .item-image-wrapper {
-        width: 100%;
-        height: 140px;
-        margin-bottom: 1rem;
+        .item-name {
+            margin: 0;
+            margin-bottom: 2px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #000000;
+        }
+        .order-total {
+            margin: 0 0 0 30px;
+            /* flex: 1; */
+            font-weight: 500;
+            color: #363636;
+        }
     }
 
     .item-content {
-        margin-left: 0;
-        flex-direction: column;
-        align-items: flex-start;
-    }
+        display: flex;
+        padding: 25px;
+        justify-content: space-between;
+        align-items: center;
 
-    .item-info {
-        width: 100%;
-        padding-right: 0;
-        margin-bottom: 1rem;
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            p {
+                margin: 0;
+            }
+
+            /* Itens do pedido */
+            .order-item {
+                border-radius: 12px;
+                transition: transform 0.2s ease;
+
+                .order-item-container {
+                    display: flex;
+                    gap: 10px;
+
+                    .item-image-wrapper {
+                        width: 90px;
+                        height: 90px;
+                        border-radius: 10px;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+                        border: 2px solid white;
+                    }
+
+                    .order-item-image {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: transform 0.3s ease;
+                    }
+
+                    .order-item-content {
+                        display: flex;
+                        flex: 1;
+                        margin-left: 1rem;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .order-item-info {
+                            flex: 1;
+                            min-width: 0;
+                            padding-right: 1rem;
+                        }
+
+                        .order-item-name {
+                            margin: 0 0 0.25rem 0;
+                            font-size: 1.1rem;
+                            font-weight: 700;
+                            color: #333333;
+                            font-family: "Nunito", sans-serif;
+                        }
+
+                        .order-item-quantity {
+                            margin: 0 0 0.5rem 0;
+                            font-size: 0.9rem;
+                            color: #717171;
+                            font-family: "Nunito", sans-serif;
+                            line-height: 1.4;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .item-actions {
-        width: 100%;
-        justify-content: space-between;
+        align-self: flex-start;
+        button {
+            background-color: #000;
+            color: #fff;
+        }
     }
 }
