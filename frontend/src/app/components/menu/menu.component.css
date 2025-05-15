@@ -1,7 +1,43 @@
+.menu-toolbar {
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #FFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 0 24px;
+    font-family: "Poppins", sans-serif;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    user-select: none;
+}
+
 .spacer {
     flex: 1 1 auto;
 }
-mat-toolbar{
-    background-color: #FFF;
-    border-bottom: 1px solid rgb(211, 211, 211);
+
+.menu-btn {
+    display: flex;
+    align-items: center;
+    font-weight: 480;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+.menu-btn mat-icon {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+/* Hover and focus styles */
+.menu-btn:hover,
+.menu-btn:focus {
+    outline: none;
+    cursor: pointer;
 }

@@ -11,6 +11,7 @@ import { FormsModule } from "@angular/forms";
 import { OrderService } from "../../services/order.service";
 import { QuantityInputComponent } from "../../components/inputs/quantity/quantity-input.component";
 import { NotificationHelper } from "../../shared/helpers/notification-helpers";
+import { CartService } from "../../services/cart.service";
 
 @Component({
     selector: 'app-home',
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit {
 
     private productService = inject(ProductService);
     private orderService = inject(OrderService);
+    private cartService = inject(CartService);
     private notificationHelper = inject(NotificationHelper);
 
     constructor() { }
@@ -59,6 +61,7 @@ export class HomeComponent implements OnInit {
         this.productService.deleteProduct(id).subscribe({
             next: () => {
                 this.products = this.products.filter((product) => product._id !== id);
+                this.cartService.refresh()
             },
             error: (err) => {
                 this.notificationHelper.showError('Erro ao deletar produto!');
@@ -81,6 +84,7 @@ export class HomeComponent implements OnInit {
             .subscribe({
                 next: () => {
                     this.notificationHelper.showSuccess('Item adicionado ao carrinho!');
+                    this.cartService.refresh()
                 },
                 error: (err) => {
                     this.notificationHelper.showError('Erro ao adicionar item ao carrinho!');

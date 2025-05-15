@@ -1,8 +1,20 @@
-<mat-toolbar color="primary">
-    <span>CUPCAKE</span>
+<mat-toolbar color="primary" class="menu-toolbar">
+    <span class="logo">CUPCAKE</span>
     <span class="spacer"></span>
-    <button mat-button [routerLink]="'/'">Catálogo</button>
-    <button mat-button [routerLink]="'/carrinho'">Carrinho</button>
-    <button mat-button [routerLink]="'/pedidos'">Meus pedidos</button>
-    <button mat-button [routerLink]="'/perfil'">Perfil</button>
+    <button mat-button [routerLink]="'/'" class="menu-btn">
+        <mat-icon>storefront</mat-icon>
+        Catálogo
+    </button>
+    <button mat-button [routerLink]="'/carrinho'" class="menu-btn" [matBadge]="itemsCount$ | async">
+        <mat-icon>shopping_cart</mat-icon>
+        Carrinho
+    </button>
+    <button mat-button [routerLink]="'/pedidos'" class="menu-btn">
+        <mat-icon>receipt_long</mat-icon>
+        Meus pedidos
+    </button>
+    <button mat-button [routerLink]="'/perfil'" class="menu-btn">
+        <mat-icon>person</mat-icon>
+        Perfil
+    </button>
 </mat-toolbar>
