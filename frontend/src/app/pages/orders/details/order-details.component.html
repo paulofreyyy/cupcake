@@ -1,9 +1,16 @@
-<div class="order-detail-container">
-    <section class="order-detail-page">
-        <div class="summary">
-            <h2>Resumo do Pedido</h2>
+<section class="order-detail-container">
+    <!-- Header -->
+    <div class="order-detail-header">
+        <button mat-icon-button (click)="location.back()">
+            <mat-icon> chevron_left </mat-icon>
+        </button>
+        <h2>Detalhes do pedido</h2>
+        <app-status-chip [status]="Order.status"></app-status-chip>
+    </div>
 
-            <mat-list-item *ngFor="let item of orderItems" class="cart-item">
+    <section class="order-detail-page">
+        <div class="order-items">
+            <mat-list-item *ngFor="let item of Order.items" class="cart-item">
                 <div class="item-container">
                     <div class="item-image-wrapper">
                         <img
@@ -30,29 +37,43 @@
                     </div>
                 </div>
             </mat-list-item>
-
-            <div class="order-total">
-                <p style="font-size: 14px; margin: 0">
-                    Frete: <span>{{ frete | currency : "BRL" }}</span>
-                </p>
-                <h3>Total: {{ total | currency : "BRL" }}</h3>
-            </div>
         </div>
 
-        <mat-divider></mat-divider>
+        <section class="summary">
+            <h2>Resumo do pedido</h2>
+            <div class="summary-content">
+                <div class="items" style="max-width: 250px;">
+                    <p class="title">Enviado para</p>
+                    <p>{{ Order.address }}</p>
+                </div>
 
-        <section>
-            <h2>Endereço de Entrega</h2>
-            <div>
-                <p>{{ address }}</p>
-            </div>
-        </section>
-        <mat-divider></mat-divider>
-        <section>
-            <h2>Forma de Pagamento</h2>
-            <div>
-                <p>{{ payment }}</p>
+                <div class="items">
+                    <p class="title">Método de pagamento</p>
+                    <mat-chip style="width: fit-content">{{
+                        Order.payment.paymentMethod
+                    }}</mat-chip>
+                </div>
+
+                <div class="items" style="flex: 1;">
+                    <p class="title">Resumo do pedido</p>
+                    <p style="display: flex; justify-content: space-between">
+                        Subtotal dos itens:
+                        <span>
+                            {{ Order.payment.total | currency : "BRL" }}
+                        </span>
+                    </p>
+                    <p style="display: flex; justify-content: space-between">
+                        Frete:
+                        <span>
+                            {{ Order.payment.shippingFee | currency : "BRL" }}
+                        </span>
+                    </p>
+                    <p style="display: flex; justify-content: space-between">
+                        Total do pedido:
+                        <span> {{ Order.orderTotal | currency : "BRL" }}</span>
+                    </p>
+                </div>
             </div>
         </section>
     </section>
-</div>
+</section>

@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,8 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute } from '@angular/router';
-import { OrderItem } from '../../../shared/models/order.model';
+import { Order } from '../../../shared/models/order.model';
 import { OrderService } from '../../../services/order.service';
+import { StatusChipComponent } from '../../../components/statusChip/status-chip.component';
+import { NotificationHelper } from '../../../shared/helpers/notification-helpers';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
     selector: 'app-checkout',
@@ -25,29 +28,26 @@ import { OrderService } from '../../../services/order.service';
         MatInputModule,
         MatRadioModule,
         MatListModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        StatusChipComponent,
+        MatChipsModule,
     ],
 })
 export class OrderDetailComponent implements OnInit {
-    orderItems: OrderItem[] = []
-    total = 0;
-    frete = 5;
-    address = '';
-    payment = '';
+    Order!: Order 
     private ordersService = inject(OrderService)
     private route = inject(ActivatedRoute)
+    private notificationHelper = inject(NotificationHelper)
+    public location = inject(Location)
     orderId = this.route.snapshot.paramMap.get('orderId')!
 
     ngOnInit(): void {
         this.ordersService.getOrderById(this.orderId).subscribe({
             next: (data) => {
-                this.orderItems = data.items
-                this.total = data.orderTotal || data.payment.total
-                this.address = data.address
-                this.payment = data.payment.paymentMethod
+                this.Order = data
             },
-            error: () => {
-                console.log("Erro ao buscar o pedido")
+            error: (err) => {
+                this.notificationHelper.showError("Erro ao carregar o pedido...")
             }
         })
     }
