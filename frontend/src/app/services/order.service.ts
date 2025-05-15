@@ -18,6 +18,12 @@ export class OrderService {
     getOrders(): Observable<Order[]> {
         return this.http.get<Order[]>(this.apiUrl)
     }
+    findOrdersByStatus(clientId: string, status: string): Observable<Order[]> {
+        return this.http.get<Order[]>(`${this.apiUrl}/${clientId}/status/${status}`)
+    }
+    findUserOrderHistory(clientId: string): Observable<Order[]> {
+        return this.http.get<Order[]>(`${this.apiUrl}/${clientId}/orderHistory`)
+    }
 
     getOrderById(id: string): Observable<Order> {
         return this.http.get<Order>(`${this.apiUrl}/${id}`)

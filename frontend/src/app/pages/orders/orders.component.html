@@ -1,0 +1,69 @@
+<div class="container" *ngIf="Orders">
+    <section>
+        <h2>Aguardando pagamento</h2>
+        <mat-list-item *ngFor="let order of checkoutOrders()" class="cart-item">
+            <div class="item-container">
+                <div class="item-content">
+                    <div class="item-info">
+                        <app-status-chip
+                            [status]="order.status"
+                        ></app-status-chip>
+                        <h4 class="item-name">Pedido: {{ order._id }}</h4>
+                        <p>
+                            Data:
+                            {{ order.createdAt | date : "dd/MM/yyyy HH:mm" }}
+                        </p>
+                        <p>Itens: {{ order.items.length }}</p>
+                        <p class="order-total">
+                            Total:
+                            {{
+                                order.orderTotal || order.payment.total
+                                    | currency : "BRL"
+                            }}
+                        </p>
+                    </div>
+
+                    <div class="item-actions">
+                        <button mat-icon-button class="detail-button" (click)="goToCheckout(order._id)">
+                            <mat-icon>chevron_right</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-list-item>
+    </section>
+
+    <section>
+        <h2>Outros pedidos</h2>
+        <mat-list-item *ngFor="let order of hasNoCheckoutOrder()" class="cart-item">
+            <div class="item-container">
+                <div class="item-content">
+                    <div class="item-info">
+                        <app-status-chip
+                            [status]="order.status"
+                        ></app-status-chip>
+                        <h4 class="item-name">Pedido: {{ order._id }}</h4>
+                        <p>
+                            Data:
+                            {{ order.createdAt | date : "dd/MM/yyyy HH:mm" }}
+                        </p>
+                        <p>Itens: {{ order.items.length }}</p>
+                        <p class="order-total">
+                            Total:
+                            {{
+                                order.orderTotal || order.payment.total
+                                    | currency : "BRL"
+                            }}
+                        </p>
+                    </div>
+
+                    <div class="item-actions">
+                        <button mat-icon-button class="detail-button">
+                            <mat-icon>chevron_right</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-list-item>
+    </section>
+</div>

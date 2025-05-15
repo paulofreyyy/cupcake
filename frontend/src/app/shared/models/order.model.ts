@@ -1,5 +1,20 @@
 import { Product } from "./product.model";
 
+export interface Address {
+    street: string;
+    number: string;
+    district: string;
+    city: string;
+    state: string;
+    zip: string;
+}
+
+export interface Payment {
+    paymentMethod: string;
+    total: number;
+    shippingFee: number;
+}
+
 export interface OrderItem {
     product: Product;
     quantity: number;
@@ -12,7 +27,9 @@ export interface Order {
     clientId: string;
     items: OrderItem[];
     orderTotal: number;
-    status: 'pending' | 'paid' | 'shipped' | 'cancelled';
+    status: 'pending' | 'paid' | 'checkout' | 'cancelled';
+    address: Address;
+    payment: Payment;
     createdAt: string;
     updatedAt: string;
     __v: number;
