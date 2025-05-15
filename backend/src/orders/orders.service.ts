@@ -108,7 +108,24 @@ export class OrdersService {
             return { message: 'Item removido e pedido deletado por falta de itens.' }
         }
 
+        // Busca os produtos atualizados no banco
+        const productIds = order.items.map(item => item.product);
+        const products = await this.productModel.find({ _id: { $in: productIds } }).exec();
+
+        // Recalcula o total com base nos produtos encontrados
+        let orderTotal = 0;
+        for (const item of order.items) {
+            const product = products.find(p => p._id.toString() === item.product.toString());
+            if (product) {
+                orderTotal += product.value * item.quantity;
+            }
+        }
+
+        order.orderTotal = orderTotal;
+
         order.markModified('items');
+        order.markModified('orderTotal');
+        await order.save();
         await order.save();
         return { message: 'Item removido com sucesso!' }
     }
