@@ -70,10 +70,16 @@ export class CartComponent implements OnInit {
             error: (err: unknown) => console.log('Erro ao carregar carrinho', err)
         })
     }
-    
+
+    updateTotal() {
+        this.total = this.cartItems.reduce((acc, item) => {
+            return acc + item.product.value * item.quantity;
+        }, 0)
+    }
+
     removeItem(productId: string) {
         if (!this.clientId) return;
-        
+
         this.ordersService.removeItemFromCart(this.pendingOrderId, productId).subscribe({
             next: () => {
                 this.notificationHelper.showSuccess('Item removido com sucesso!')
