@@ -26,6 +26,9 @@ export class Orders extends Document {
         zip: string;
     };
 
+    @Prop()
+    deliveryDate: Date;
+
     @Prop({ type: Object })
     payment: {
         paymentMethod: string;

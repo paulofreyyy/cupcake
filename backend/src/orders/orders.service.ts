@@ -190,11 +190,16 @@ export class OrdersService {
         order.payment = payment;
         order.orderTotal = payment.total + payment.shippingFee;
 
+        const deliveryDate = new Date();
+        deliveryDate.setDate(deliveryDate.getDate() + 3);
+        order.deliveryDate = deliveryDate;
+
         // Marca os campos como modificados, se necessário
         order.markModified('status');
         order.markModified('address');
         order.markModified('payment');
         order.markModified('orderTotal');
+        order.markModified('deliveryDate');
 
         return order.save();
     }
