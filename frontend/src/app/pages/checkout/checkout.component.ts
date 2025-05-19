@@ -9,7 +9,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { OrderItem } from '../../shared/models/order.model';
 import { OrderService } from '../../services/order.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationHelper } from '../../shared/helpers/notification-helpers';
 
 @Component({
@@ -37,6 +37,7 @@ export class CheckoutComponent implements OnInit {
     private fb = inject(FormBuilder)
     private ordersService = inject(OrderService)
     private route = inject(ActivatedRoute)
+    private router = inject(Router)
     public location = inject(Location)
     public notificationHelper = inject(NotificationHelper)
     orderId = this.route.snapshot.paramMap.get('orderId')!
@@ -82,6 +83,7 @@ export class CheckoutComponent implements OnInit {
         this.ordersService.orderPayment(this.orderId, payload).subscribe({
             next: () => {
                 this.notificationHelper.showSuccess("Pedido confirmado!")
+                this.router.navigate(['pedidos'])
             },
             error: (err) => {
                 this.notificationHelper.showError(err.error.message)

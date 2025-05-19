@@ -64,6 +64,8 @@ export class OrdersComponent implements OnInit {
     }
 
     hasNoCheckoutOrder() {
-        return this.Orders.filter(order => order.status !== 'checkout' && order.status !== 'pending')
+        return this.Orders
+            .filter(order => order.status !== 'checkout' && order.status !== 'pending')
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     }
 }
