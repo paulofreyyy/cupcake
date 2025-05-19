@@ -38,3 +38,9 @@ mat-card-title {
     background-color: #000;
     color: #fff;
 }
+.logout{
+    width: 100%;
+    background-color: #ca0b0b;
+    color: #fff;
+    margin-top: 15px;
+}

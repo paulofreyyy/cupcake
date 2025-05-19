@@ -28,6 +28,7 @@ import { UserService } from '../../services/user.service';
 export class ProfileComponent implements OnInit{
     public router = inject(Router);
     public userService = inject(UserService);
+    public authService = inject(AuthService);
     private notificationHelper = inject(NotificationHelper);
     userId = localStorage.getItem('clientId') || '';
     userData: User | null = null
@@ -39,5 +40,10 @@ export class ProfileComponent implements OnInit{
             },
             error: (err) => this.notificationHelper.showError(err.error.message)
         })
+    }
+
+    logout(){
+        this.authService.logout();
+        this.router.navigate(['/'])
     }
 }
