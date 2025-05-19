@@ -36,7 +36,7 @@ export class LoginComponent {
             next: () => {
                 this.router.navigate(['/']);
             },
-            error: (err) => this.notificationHelper.showError(err)
+            error: (err) => this.notificationHelper.showError(err.error.message)
         });
     }
 }

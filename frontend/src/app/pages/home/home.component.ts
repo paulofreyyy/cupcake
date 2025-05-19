@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
                 this.loading = false;
             },
             error: (err) => {
-                this.notificationHelper.showError('Erro ao carregar produtos!');
+                this.notificationHelper.showError(err.error.message);
                 this.loading = false;
             },
         });
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
                     this.cartService.refresh()
                 },
                 error: (err) => {
-                    this.notificationHelper.showError('Erro ao adicionar item ao carrinho!');
+                    this.notificationHelper.showError(err.error.message);
                 }
             })
     }

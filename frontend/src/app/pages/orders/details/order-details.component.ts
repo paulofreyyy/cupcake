@@ -47,7 +47,7 @@ export class OrderDetailComponent implements OnInit {
                 this.Order = data
             },
             error: (err) => {
-                this.notificationHelper.showError("Erro ao carregar o pedido...")
+                this.notificationHelper.showError(err.error.message)
             }
         })
     }

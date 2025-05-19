@@ -84,7 +84,7 @@ export class CheckoutComponent implements OnInit {
                 this.notificationHelper.showSuccess("Pedido confirmado!")
             },
             error: (err) => {
-                this.notificationHelper.showError(err)
+                this.notificationHelper.showError(err.error.message)
             }
         });
     }
@@ -96,7 +96,7 @@ export class CheckoutComponent implements OnInit {
                 this.location.back()
             },
             error: (err) =>{
-                this.notificationHelper.showError(err)
+                this.notificationHelper.showError(err.error.message)
             }
         })
     }

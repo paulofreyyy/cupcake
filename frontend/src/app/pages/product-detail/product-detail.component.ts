@@ -48,7 +48,7 @@ export class ProductDetailComponent implements OnInit {
                 this.product = data
             },
             error: (err) => {
-                this.notificationHelper.showError(err);
+                this.notificationHelper.showError(err.error.message);
             },
         });
     }
@@ -72,7 +72,7 @@ export class ProductDetailComponent implements OnInit {
                     this.cartService.refresh()
                 },
                 error: (err) => {
-                    this.notificationHelper.showError('Erro ao adicionar item ao carrinho!');
+                    this.notificationHelper.showError(err.error.message);
                 }
             })
     }

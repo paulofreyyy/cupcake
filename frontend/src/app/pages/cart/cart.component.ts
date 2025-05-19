@@ -86,7 +86,7 @@ export class CartComponent implements OnInit {
                 this.loadCart()
             },
             error: (err) => {
-                this.notificationHelper.showError('Erro ao remover item!')
+                this.notificationHelper.showError(err.error.message)
             },
         })
     }
