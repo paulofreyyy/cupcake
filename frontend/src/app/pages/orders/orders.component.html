@@ -38,11 +38,6 @@
 
                 <div class="item-content">
                     <div class="item-info">
-                        <p>
-                            Pendente desde
-                            {{ order.createdAt | date : "dd/MM/yyyy HH:mm" }}
-                        </p>
-
                         <!-- Itens do pedido -->
                         <mat-list-item
                             *ngFor="let item of order.items"
@@ -108,6 +103,14 @@
                         </h4>
                         <p style="margin: 0; font-size: 0.9rem">
                             {{ order.createdAt | date : "dd/MM/yyyy HH:mm" }}
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="item-name">
+                            Previsão de entrega
+                        </h4>
+                        <p style="margin: 0; font-size: 0.9rem">
+                            {{ order.deliveryDate| date : "dd/MM/yyyy" }}
                         </p>
                     </div>
                     <p class="order-total">

@@ -45,6 +45,11 @@
                 <div class="items" style="max-width: 250px;">
                     <p class="title">Enviado para</p>
                     <p>{{ Order.address }}</p>
+
+                    <div>
+                        <p style="font-weight: 500;">Previsão de entrega</p>
+                        <p>{{Order.deliveryDate | date: 'dd/MM/yyyy'}}</p>
+                    </div>
                 </div>
 
                 <div class="items">

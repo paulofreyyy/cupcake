@@ -29,6 +29,7 @@ export interface Order {
     orderTotal: number;
     status: 'pending' | 'paid' | 'checkout' | 'cancelled';
     address: string;
+    deliveryDate: string;
     payment: Payment;
     createdAt: string;
     updatedAt: string;
