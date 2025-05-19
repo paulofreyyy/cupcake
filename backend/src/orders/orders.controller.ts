@@ -40,11 +40,6 @@ export class OrdersController {
         return this.ordersService.update(id, dto);
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.ordersService.remove(id);
-    }
-
     @Get("cart/:clientId")
     findPendingCart(@Param('clientId') clientId: string) {
         return this.ordersService.findPendingCartByClient(clientId)
@@ -77,5 +72,10 @@ export class OrdersController {
         const { status, address, payment } = dto;
 
         return this.ordersService.orderPayment(orderId, status, address, payment);
+    }
+
+    @Post('/cancel-order')
+    async cancelOrder(@Body('orderId') orderId: string){
+        return this.ordersService.cancelOrder(orderId)
     }
 }

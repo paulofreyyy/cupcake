@@ -203,4 +203,13 @@ export class OrdersService {
 
         return order.save();
     }
+
+    async cancelOrder(orderId: string){
+        const order = await this.orderModel.findById(orderId).exec();
+        if(!order) throw new NotFoundException("Pedido não encontrado");
+
+        order.status = 'cancelled';
+        order.markModified('status');
+        return order.save()
+    }
 }
