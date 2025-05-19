@@ -1,0 +1,34 @@
+<div class="profile-container">
+    <mat-card class="profile-card" *ngIf="userData">
+        <mat-card-title>Meu Perfil</mat-card-title>
+        <mat-card-content>
+            <form>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Nome</mat-label>
+                    <input
+                        matInput
+                        [(ngModel)]="userData.name"
+                        name="name"
+                        disabled
+                    />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input
+                        matInput
+                        [(ngModel)]="userData.email"
+                        name="email"
+                        disabled
+                    />
+                </mat-form-field>
+
+               <button mat-raised-button class="update-password">
+                    Alterar senha
+               </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <div *ngIf="!userData" class="loading-text">Carregando perfil...</div>
+</div>

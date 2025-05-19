@@ -1,0 +1,40 @@
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    padding: 1rem;
+}
+
+.profile-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 16px;
+}
+
+mat-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.update-password{
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+}
