@@ -1,42 +1,42 @@
 <div class="login-container">
-  <mat-card class="login-card">
-    <h2>Login</h2>
-    <form (ngSubmit)="submit()" class="login-form">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="email" name="email" required />
-      </mat-form-field>
+    <mat-card class="login-card">
+        <h2>Login</h2>
+        <form (ngSubmit)="submit()" class="login-form">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput [(ngModel)]="email" name="email" required />
+            </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Senha</mat-label>
-        <input
-          matInput
-          [(ngModel)]="password"
-          name="password"
-          type="password"
-          required
-        />
-      </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Senha</mat-label>
+                <input
+                    matInput
+                    [(ngModel)]="password"
+                    name="password"
+                    type="password"
+                    required
+                />
+            </mat-form-field>
 
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        class="full-width"
-      >
-        Entrar
-      </button>
+            <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                class="full-width"
+            >
+                Entrar
+            </button>
 
-      <!-- Botão para ir à página de registro -->
-      <button
-        mat-button
-        color="accent"
-        type="button"
-        (click)="router.navigate(['/register'])"
-        class="full-width"
-      >
-        Criar uma conta
-      </button>
-    </form>
-  </mat-card>
+            <!-- Botão para ir à página de registro -->
+            <button
+                mat-button
+                color="accent"
+                type="button"
+                (click)="router.navigate(['/register'])"
+                class="full-width"
+            >
+                Criar uma conta
+            </button>
+        </form>
+    </mat-card>
 </div>

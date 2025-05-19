@@ -37,7 +37,7 @@ export class RegisterComponent {
     submit() {
         this.auth.register({ name: this.name, email: this.email, password: this.password }).subscribe({
             next: () => this.router.navigate(['/login']),
-            error: () => this.notificationHelper.showError('Erro ao registrar usuário!')
+            error: (err) => this.notificationHelper.showError(err)
         });
     }
 }

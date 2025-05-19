@@ -1,0 +1,41 @@
+<section class="product-container">
+    <!-- Header -->
+    <div class="product-header">
+        <button mat-icon-button (click)="location.back()">
+            <mat-icon> chevron_left </mat-icon>
+        </button>
+        <h2>Detalhes do produto</h2>
+    </div>
+    <div class="product-detail-container" *ngIf="product">
+        <mat-card class="product-card" >
+            <div class="product-content">
+                <img
+                    mat-card-image
+                    [src]="product.image"
+                    alt="{{ product.name }}"
+                />
+
+                <div class="product-info">
+                    <h2 class="product-title">{{ product.name }}</h2>
+                    <p class="product-description">{{ product.description }}</p>
+
+                    <h3 class="product-price">
+                        {{
+                            product.value
+                                | currency : "BRL" : "symbol" : "1.2-2"
+                        }}/un
+                    </h3>
+
+                    <button
+                        mat-raised-button
+                        (click)="addToCart(product)"
+                        class="add-to-cart-button"
+                    >
+                        <mat-icon>add_shopping_cart</mat-icon>
+                        Adicionar ao carrinho
+                    </button>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</section>

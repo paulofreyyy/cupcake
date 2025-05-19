@@ -18,7 +18,7 @@ export class AppComponent {
             filter(event => event instanceof NavigationEnd)
         ).subscribe((event: NavigationEnd) => {
             // Esconde menu se estiver na rota /login
-            this.showMenu = event.url !== '/login';
+            this.showMenu = event.url !== '/login' && event.url !== '/register';
         });
     }
 }

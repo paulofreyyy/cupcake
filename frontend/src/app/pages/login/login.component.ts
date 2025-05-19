@@ -33,10 +33,10 @@ export class LoginComponent {
 
     submit() {
         this.auth.login({ email: this.email, password: this.password }).subscribe({
-            next: (res) => {
+            next: () => {
                 this.router.navigate(['/']);
             },
-            error: (err) => this.notificationHelper.showError('Credenciais inválidas!')
+            error: (err) => this.notificationHelper.showError(err)
         });
     }
 }
