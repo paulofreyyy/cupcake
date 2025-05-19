@@ -10,6 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { OrderItem } from '../../shared/models/order.model';
 import { OrderService } from '../../services/order.service';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationHelper } from '../../shared/helpers/notification-helpers';
 
 @Component({
     selector: 'app-checkout',
@@ -37,6 +38,7 @@ export class CheckoutComponent implements OnInit {
     private ordersService = inject(OrderService)
     private route = inject(ActivatedRoute)
     public location = inject(Location)
+    public notificationHelper = inject(NotificationHelper)
     orderId = this.route.snapshot.paramMap.get('orderId')!
 
     ngOnInit(): void {
@@ -78,13 +80,24 @@ export class CheckoutComponent implements OnInit {
         };
 
         this.ordersService.orderPayment(this.orderId, payload).subscribe({
-            next: (updatedOrder) => {
-                console.log('Pedido confirmado com sucesso:', updatedOrder);
-                // redirecionar, limpar carrinho, etc.
+            next: () => {
+                this.notificationHelper.showSuccess("Pedido confirmado!")
             },
             error: (err) => {
-                console.error('Erro ao confirmar pedido:', err);
+                this.notificationHelper.showError(err)
             }
         });
+    }
+
+    cancelOrder(){
+        this.ordersService.cancelOrder(this.orderId).subscribe({
+            next: () => {
+                this.notificationHelper.showSuccess("Pedido cancelado com sucesso!")
+                this.location.back()
+            },
+            error: (err) =>{
+                this.notificationHelper.showError(err)
+            }
+        })
     }
 }

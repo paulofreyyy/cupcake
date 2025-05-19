@@ -7,7 +7,7 @@
         <h2>Seus pedidos</h2>
     </div>
 
-    <section class="order-items">
+    <section class="order-items" *ngIf="checkoutOrders().length !== 0">
         <h2>Aguardando pagamento</h2>
         <mat-list-item *ngFor="let order of checkoutOrders()" class="cart-item">
             <div class="item-container" style="border: 2px solid orange;">

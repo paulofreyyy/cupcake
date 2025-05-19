@@ -100,6 +100,7 @@ export class CartComponent implements OnInit {
 
         this.ordersService.checkoutOrder(this.pendingOrderId, itens).subscribe({
             next: () => {
+                this.cartService.refresh()
                 this.router.navigate([`checkout/${this.pendingOrderId}`])
             },
             error: (err) => {

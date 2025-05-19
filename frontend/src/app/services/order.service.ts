@@ -64,4 +64,8 @@ export class OrderService {
     }): Observable<Order> {
         return this.http.patch<Order>(`${this.apiUrl}/${orderId}/payment`, data)
     }
+
+    cancelOrder(orderId: string): Observable<Order>{
+        return this.http.post<Order>(`${this.apiUrl}/cancel-order`, {orderId})
+    }
 }

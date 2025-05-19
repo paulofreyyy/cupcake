@@ -48,7 +48,7 @@
                 <div class="address-form-content">
                     <mat-form-field appearance="outline">
                         <mat-label>Rua</mat-label>
-                        <input matInput formControlName="street"/>
+                        <input matInput formControlName="street" />
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Número</mat-label>
@@ -99,9 +99,15 @@
                 </p>
             </div>
 
-            <button mat-raised-button (click)="confirmOrder()">
-                Finalizar <mat-icon>check_circle</mat-icon>
-            </button>
+            <div style="display: flex; gap: 20px;">
+                <button mat-raised-button (click)="cancelOrder()">
+                    Cancelar <mat-icon>cancel</mat-icon>
+                </button>
+
+                <button mat-raised-button (click)="confirmOrder()">
+                    Finalizar <mat-icon>check_circle</mat-icon>
+                </button>
+            </div>
         </div>
     </section>
 </div>
