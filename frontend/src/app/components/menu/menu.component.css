@@ -22,6 +22,10 @@
 .buttons{
     display: flex;
     gap: 15px;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
 .menu-btn {
     display: flex;

@@ -9,6 +9,10 @@
             font-weight: 480;
         }
     }
+
+    @media (max-width: 768px) {
+        padding: 0 20px;
+    }
 }
 
 .product-detail-container {

@@ -9,7 +9,6 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { FormsModule } from "@angular/forms";
 import { OrderService } from "../../services/order.service";
-import { QuantityInputComponent } from "../../components/inputs/quantity/quantity-input.component";
 import { NotificationHelper } from "../../shared/helpers/notification-helpers";
 import { CartService } from "../../services/cart.service";
 import { Router } from "@angular/router";
