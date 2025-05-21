@@ -13,6 +13,8 @@ import { Order, OrderItem, UpdateOrderItem } from "../../shared/models/order.mod
 import { NotificationHelper } from "../../shared/helpers/notification-helpers";
 import { Router } from "@angular/router";
 import { CartService } from "../../services/cart.service";
+import { LoadingHelper } from "../../shared/helpers/loading.helper";
+import { LoadingComponent } from "../../components/loading/loading.component";
 
 
 
@@ -31,6 +33,7 @@ import { CartService } from "../../services/cart.service";
         MatIconModule,
         MatListModule,
         QuantityInputComponent,
+        LoadingComponent
     ],
 })
 export class CartComponent implements OnInit {
@@ -39,6 +42,7 @@ export class CartComponent implements OnInit {
     private notificationHelper = inject(NotificationHelper);
     private router = inject(Router);
     public location = inject(Location);
+    private loadingHelper = inject(LoadingHelper);
     clientId = localStorage.getItem('clientId') || '';
     pendingOrderId = '';
     total: number = 0;
@@ -50,6 +54,7 @@ export class CartComponent implements OnInit {
     }
 
     loadCart() {
+        this.loadingHelper.show();
         if (!this.clientId) return;
 
         this.ordersService.getPendingOrder(this.clientId).subscribe({
@@ -58,15 +63,16 @@ export class CartComponent implements OnInit {
                     this.cartItems = order.items;
                     this.pendingOrderId = order._id;
                     this.total = order.orderTotal
-
-                    // this.cartService.refresh
                 } else {
                     this.cartItems = [];
                     this.pendingOrderId = '';
                     this.total = 0;
                 }
             },
-            error: (err: unknown) => console.log('Erro ao carregar carrinho', err)
+            error: (err: unknown) => console.log('Erro ao carregar carrinho', err),
+            complete:() =>{
+                this.loadingHelper.hide()
+            },
         })
     }
 

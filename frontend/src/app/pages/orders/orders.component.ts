@@ -12,6 +12,8 @@ import { Order } from "../../shared/models/order.model";
 import { NotificationHelper } from "../../shared/helpers/notification-helpers";
 import { Router } from "@angular/router";
 import { StatusChipComponent } from "../../components/statusChip/status-chip.component";
+import { LoadingHelper } from "../../shared/helpers/loading.helper";
+import { LoadingComponent } from "../../components/loading/loading.component";
 
 @Component({
     selector: 'app-home',
@@ -28,12 +30,14 @@ import { StatusChipComponent } from "../../components/statusChip/status-chip.com
         MatIconModule,
         MatListModule,
         StatusChipComponent,
-        DatePipe
+        DatePipe,
+        LoadingComponent,
     ],
 })
 export class OrdersComponent implements OnInit {
     private ordersService = inject(OrderService);
     private notificationHelper = inject(NotificationHelper);
+    private loadingHelper = inject(LoadingHelper);
     public router = inject(Router);
     public location = inject(Location)
     clientId = localStorage.getItem('clientId') || '';
@@ -45,6 +49,7 @@ export class OrdersComponent implements OnInit {
     }
 
     loadOrders() {
+        this.loadingHelper.show();
         if (!this.clientId) return;
 
         this.ordersService.findUserOrderHistory(this.clientId).subscribe({
@@ -55,7 +60,10 @@ export class OrdersComponent implements OnInit {
                     this.Orders = [];
                 }
             },
-            error: (err) => this.notificationHelper.showError(err.error.message)
+            error: (err) => this.notificationHelper.showError(err.error.message),
+            complete:() =>{
+                this.loadingHelper.hide();
+            },
         })
     }
 

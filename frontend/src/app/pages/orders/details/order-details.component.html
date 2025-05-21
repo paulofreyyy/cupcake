@@ -8,6 +8,8 @@
         <app-status-chip [status]="Order.status"></app-status-chip>
     </div>
 
+    <app-loading></app-loading>
+
     <section class="order-detail-page">
         <div class="order-items">
             <mat-list-item *ngFor="let item of Order.items" class="cart-item">

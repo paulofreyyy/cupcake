@@ -7,6 +7,8 @@
         <h2>Seus pedidos</h2>
     </div>
 
+    <app-loading></app-loading>
+
     <section class="order-items" *ngIf="checkoutOrders().length !== 0">
         <h2>Aguardando pagamento</h2>
         <mat-list-item *ngFor="let order of checkoutOrders()" class="cart-item">
@@ -89,7 +91,7 @@
         </mat-list-item>
     </section>
 
-    <section class="order-items">
+    <section class="order-items" *ngIf="hasNoCheckoutOrder().length !== 0">
         <h2>Outros pedidos</h2>
         <mat-list-item
             *ngFor="let order of hasNoCheckoutOrder()"

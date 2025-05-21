@@ -7,7 +7,9 @@
         <h2>Checkout</h2>
     </div>
 
-    <section class="checkout-page">
+    <app-loading></app-loading>
+
+    <section class="checkout-page" *ngIf="cartItems.length !== 0">
         <!-- Itens no carrinho -->
         <div class="order-items">
             <mat-list-item *ngFor="let item of cartItems" class="cart-item">

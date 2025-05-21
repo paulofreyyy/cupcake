@@ -13,6 +13,8 @@ import { OrderService } from "../../services/order.service";
 import { NotificationHelper } from "../../shared/helpers/notification-helpers";
 import { CartService } from "../../services/cart.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { LoadingComponent } from "../../components/loading/loading.component";
+import { LoadingHelper } from "../../shared/helpers/loading.helper";
 
 @Component({
     selector: 'app-product-detail',
@@ -26,6 +28,7 @@ import { ActivatedRoute, Router } from "@angular/router";
         MatInputModule,
         FormsModule,
         MatIconModule,
+        LoadingComponent,
     ],
 })
 export class ProductDetailComponent implements OnInit {
@@ -39,16 +42,21 @@ export class ProductDetailComponent implements OnInit {
     private notificationHelper = inject(NotificationHelper);
     public router = inject(Router);
     public location = inject(Location);
+    public loadingHelper = inject(LoadingHelper);
 
     productId = this.route.snapshot.paramMap.get('productId')!
     
     ngOnInit(): void {
+        this.loadingHelper.show();
          this.productService.getProductById(this.productId).subscribe({
             next: (data: Product) => {
                 this.product = data
             },
             error: (err) => {
                 this.notificationHelper.showError(err.error.message);
+            },
+            complete:() =>{
+                this.loadingHelper.hide()
             },
         });
     }
