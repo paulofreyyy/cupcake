@@ -20,39 +20,39 @@ export class OrderService {
         return this.http.get<Order[]>(this.apiUrl)
     }
     findOrdersByStatus(clientId: string, status: string): Observable<Order[]> {
-        return this.http.get<Order[]>(`${this.apiUrl}/${clientId}/status/${status}`)
+        return this.http.get<Order[]>(`${this.apiUrl}/orders/${clientId}/status/${status}`)
     }
     findUserOrderHistory(clientId: string): Observable<Order[]> {
-        return this.http.get<Order[]>(`${this.apiUrl}/${clientId}/orderHistory`)
+        return this.http.get<Order[]>(`${this.apiUrl}/orders/${clientId}/orderHistory`)
     }
 
     getOrderById(id: string): Observable<Order> {
-        return this.http.get<Order>(`${this.apiUrl}/${id}`)
+        return this.http.get<Order>(`${this.apiUrl}/orders/${id}`)
     }
 
     updateOrder(id: string, order: Order): Observable<Order> {
-        return this.http.put<Order>(`${this.apiUrl}/${id}`, order)
+        return this.http.put<Order>(`${this.apiUrl}/orders/${id}`, order)
     }
 
     deleteOrder(id: string): Observable<Order> {
-        return this.http.delete<Order>(`${this.apiUrl}/${id}`)
+        return this.http.delete<Order>(`${this.apiUrl}/orders/${id}`)
     }
 
     getPendingOrder(clientId: string): Observable<Order> {
-        return this.http.get<Order>(`${this.apiUrl}/cart/${clientId}`)
+        return this.http.get<Order>(`${this.apiUrl}/orders/cart/${clientId}`)
     }
     getCheckoutOrder(clientId: string): Observable<Order> {
-        return this.http.get<Order>(`${this.apiUrl}/cart/checkout/${clientId}`)
+        return this.http.get<Order>(`${this.apiUrl}/orders/cart/checkout/${clientId}`)
     }
 
     addToCart(clientId: string, data: { productId: string, quantity: number }): Observable<Order> {
-        return this.http.post<Order>(`${this.apiUrl}/cart/${clientId}`, data)
+        return this.http.post<Order>(`${this.apiUrl}/orders/cart/${clientId}`, data)
     }
     removeItemFromCart(orderId: string, productId: string): Observable<Order> {
-        return this.http.delete<Order>(`${this.apiUrl}/cart/${orderId}/item/${productId}`)
+        return this.http.delete<Order>(`${this.apiUrl}/orders/cart/${orderId}/item/${productId}`)
     }
     checkoutOrder(orderId: string, itens: UpdateOrderItem[]): Observable<Order> {
-        return this.http.patch<Order>(`${this.apiUrl}/${orderId}/itens`, itens)
+        return this.http.patch<Order>(`${this.apiUrl}/orders/${orderId}/itens`, itens)
     }
     orderPayment(orderId: string, data: {
         address: string;
@@ -63,10 +63,10 @@ export class OrderService {
             total: number;
         };
     }): Observable<Order> {
-        return this.http.patch<Order>(`${this.apiUrl}/${orderId}/payment`, data)
+        return this.http.patch<Order>(`${this.apiUrl}/orders/${orderId}/payment`, data)
     }
 
     cancelOrder(orderId: string): Observable<Order>{
-        return this.http.post<Order>(`${this.apiUrl}/cancel-order`, {orderId})
+        return this.http.post<Order>(`${this.apiUrl}/orders/cancel-order`, {orderId})
     }
 }
