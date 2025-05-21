@@ -12,7 +12,7 @@ import { OrdersModule } from './orders/orders.module';
         UserModule,
         ProductModule,
         AuthModule,
-        MongooseModule.forRoot('mongodb://localhost:27017/cupcake'),
+        MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/cupcake'),
         OrdersModule
     ],
     controllers: [AppController],
