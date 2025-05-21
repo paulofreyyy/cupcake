@@ -12,6 +12,8 @@ import { OrderService } from "../../services/order.service";
 import { NotificationHelper } from "../../shared/helpers/notification-helpers";
 import { CartService } from "../../services/cart.service";
 import { Router } from "@angular/router";
+import { LoadingHelper } from "../../shared/helpers/loading.helper";
+import { LoadingComponent } from "../../components/loading/loading.component";
 
 @Component({
     selector: 'app-home',
@@ -25,6 +27,7 @@ import { Router } from "@angular/router";
         MatInputModule,
         FormsModule,
         MatIconModule,
+        LoadingComponent
     ],
 })
 export class HomeComponent implements OnInit {
@@ -34,6 +37,7 @@ export class HomeComponent implements OnInit {
 
     private productService = inject(ProductService);
     private orderService = inject(OrderService);
+    private loadingHelper = inject(LoadingHelper);
     private cartService = inject(CartService);
     private notificationHelper = inject(NotificationHelper);
     public router = inject(Router);
@@ -45,7 +49,8 @@ export class HomeComponent implements OnInit {
     }
 
     getProducts(): void {
-        this.loading = true;
+        this.loadingHelper.show();
+
         this.productService.getProducts().subscribe({
             next: (data) => {
                 this.products = data
@@ -54,6 +59,9 @@ export class HomeComponent implements OnInit {
             error: (err) => {
                 this.notificationHelper.showError(err.error.message);
                 this.loading = false;
+            },
+            complete: () => {
+                this.loadingHelper.hide()
             },
         });
     }

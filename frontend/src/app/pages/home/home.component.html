@@ -1,5 +1,6 @@
 <section class="container">
     <h2>Produtos</h2>
+    <app-loading></app-loading>
     <div class="products-container">
         <mat-card *ngFor="let product of products" class="product-card">
             <img mat-card-image src="{{ product.image }}" />

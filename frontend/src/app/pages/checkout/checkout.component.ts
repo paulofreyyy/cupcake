@@ -11,6 +11,8 @@ import { OrderItem } from '../../shared/models/order.model';
 import { OrderService } from '../../services/order.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationHelper } from '../../shared/helpers/notification-helpers';
+import { LoadingComponent } from "../../components/loading/loading.component";
+import { LoadingHelper } from '../../shared/helpers/loading.helper';
 
 @Component({
     selector: 'app-checkout',
@@ -18,16 +20,17 @@ import { NotificationHelper } from '../../shared/helpers/notification-helpers';
     templateUrl: './checkout.component.html',
     styleUrls: ['./checkout.component.css'],
     imports: [
-        CommonModule,
-        FormsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatRadioModule,
-        MatListModule,
-        ReactiveFormsModule
-    ],
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatListModule,
+    ReactiveFormsModule,
+    LoadingComponent
+],
 })
 export class CheckoutComponent implements OnInit {
     cartItems: OrderItem[] = []
@@ -39,10 +42,12 @@ export class CheckoutComponent implements OnInit {
     private route = inject(ActivatedRoute)
     private router = inject(Router)
     public location = inject(Location)
+    private loadingHelper = inject(LoadingHelper)
     public notificationHelper = inject(NotificationHelper)
     orderId = this.route.snapshot.paramMap.get('orderId')!
 
     ngOnInit(): void {
+        this.loadingHelper.show();
         this.addressForm = this.fb.group({
             street: ['Rua das Fiandeiras'],
             number: ['100'],
@@ -59,10 +64,11 @@ export class CheckoutComponent implements OnInit {
             },
             error: () => {
                 console.log("Erro ao buscar o pedido")
-            }
+            },
+            complete:() =>{
+                this.loadingHelper.hide();
+            },
         })
-
-        // carregar carrinho e total
     }
 
     confirmOrder() {
